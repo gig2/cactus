@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 COMPONENTS Core Widgets Gui REQUIRED)
-find_package(OpenMVG REQUIRED)
+find_package(OpenMVG)
+#find_package(OpenMVG REQUIRED)
 
 add_subdirectory(src)

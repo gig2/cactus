@@ -14,6 +14,6 @@ target_link_libraries(cactus PUBLIC
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui
-    OpenMVG::openMVG_camera
-    OpenMVG::openMVG_numeric
+    #OpenMVG::openMVG_camera
+    #OpenMVG::openMVG_numeric
     )
