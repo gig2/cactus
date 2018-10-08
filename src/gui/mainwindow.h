@@ -2,14 +2,13 @@
 #define MAINWINDOW_H
 
 #include "objwindow.h"
+#include "ui_mainwindow.h"
 
 #include <QMainWindow>
 #include <QtWidgets>
 
-namespace Ui
-{
-class MainWindow;
-}
+#include <memory>
+
 
 class MainWindow : public QMainWindow
 {
@@ -17,15 +16,13 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow( QWidget *parent = nullptr );
-    QPushButton *btn1;
-    ~MainWindow();
 
 private slots:
-    void clickEvent();
+    void loadObjRequested();
 
 private:
-    Ui::MainWindow *ui;
-    OBJWindow *owin;
+    std::unique_ptr<Ui::MainWindow> ui;
+    std::unique_ptr<OBJWindow> owin;
 };
 
 #endif // MAINWINDOW_H
