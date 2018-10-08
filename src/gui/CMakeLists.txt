@@ -1,23 +1,24 @@
-qt5_wrap_ui( UiFiles
-    ui/mainwindow.ui)
+set( guiSources
+  mainwindow.cpp
+  modelvisu.cpp
+  modelwidget.cpp)
 
 
 qt5_wrap_cpp( mocHeader
    mainwindow.h
-   objwindow.h)
+   modelvisu.h
+   modelwidget.h)
 
-set( guiSources
-  mainwindow.cpp
-  objwindow.cpp
-     )
 
-set (guiHeaders
-     )
+qt5_wrap_ui( UiFiles
+    ui/mainwindow.ui)
+
    
-add_library(cactusgui ${guiSources} ${guiHeaders}  ${UiFiles}
+add_library(cactusgui ${guiSources}  ${UiFiles}
                       ${mocHeader})
 
 target_include_directories(cactusgui PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_PROJECT_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<INSTALL_INTERFACE:include/Cactus)

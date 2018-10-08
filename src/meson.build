@@ -8,5 +8,6 @@ executable('cactus', sourcesFiles,
                           qt5_3dcore_dep,
                           qt5_3drender_dep,
                           qt5_3dextras_dep,
-                          gl_dep])
+                          gl_dep],
+           include_directories: includeDir)
 

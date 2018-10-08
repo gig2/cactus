@@ -1,9 +1,12 @@
 
 gui_sources = files(['mainwindow.cpp',
-                    'objwindow.cpp'])
+                     'modelvisu.cpp',
+                     'modelwidget.cpp'])
+
 
 gui_moc_headers = files(['mainwindow.h',
-                        'objwindow.h'])
+                         'modelvisu.h',
+                         'modelwidget.h'])
 
 gui_ui = files(['ui/mainwindow.ui'])
 
@@ -25,9 +28,11 @@ cactusgui_lib = library('cactusgui',
                         qt5_3drender_dep,
                         qt5_3dextras_dep,
                         qt5_opengl_dep,
-                        gl_dep])
+                        gl_dep]
+        , include_directories: [includeDir]
+                       )
 
 
 cactusgui_dep = declare_dependency(link_with: cactusgui_lib,
-                                   include_directories: [includeDir,
-                                                        cactusgui_lib.private_dir_include()])
+                                   include_directories: [includeDir
+                                                        ])

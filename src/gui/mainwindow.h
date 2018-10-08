@@ -1,15 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "objwindow.h"
-
 #include <QMainWindow>
 #include <QtWidgets>
+
+#include <memory>
+
 
 namespace Ui
 {
 class MainWindow;
 }
+
 
 class MainWindow : public QMainWindow
 {
@@ -17,15 +19,17 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow( QWidget *parent = nullptr );
-    QPushButton *btn1;
-    ~MainWindow();
+
+    virtual ~MainWindow();
 
 private slots:
-    void clickEvent();
+    void loadObjRequested();
+
+signals:
+    void modelToLoad( QString model );
 
 private:
-    Ui::MainWindow *ui;
-    OBJWindow *owin;
+    std::unique_ptr<Ui::MainWindow> ui;
 };
 
 #endif // MAINWINDOW_H
