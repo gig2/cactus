@@ -3,9 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <Qt3DCore>
-#include <Qt3DRender>
-#include <Qt3DExtras>
+#include "objwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     QPushButton *btn1;
     ~MainWindow();
 
@@ -25,6 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    OBJWindow * owin;
 };
 
 #endif // MAINWINDOW_H
