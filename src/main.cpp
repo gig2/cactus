@@ -1,6 +1,12 @@
-#include <iostream>
+#include "gui/mainwindow.h"
 
-int main(int argc, char **argv)
+#include <QApplication>
+
+int main( int argc, char *argv[] )
 {
-    return EXIT_SUCCESS;
+    QApplication a( argc, argv );
+    MainWindow w;
+    w.show();
+
+    return a.exec();
 }
