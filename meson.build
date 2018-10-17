@@ -10,6 +10,7 @@ qt5_3dinput_dep  = dependency('qt5', modules: '3DInput')
 qt5_3drender_dep = dependency('qt5', modules: '3DRender')
 qt5_3dextras_dep = dependency('qt5', modules: '3DExtras')
 gl_dep           = dependency('GL')
+openmesh_dep     = dependency('openmesh')
 
 includeDir = include_directories('src')
 
