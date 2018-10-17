@@ -4,14 +4,15 @@
 #include <string>
 
 using MeshTraits = OpenMesh::DefaultTraits;
-using MeshT = OpenMesh::TriMesh_ArrayKernelT<MeshTraits>;
+using MeshT      = OpenMesh::TriMesh_ArrayKernelT<MeshTraits>;
 
 class Mesh
 {
-private :
+private:
     MeshT mesh_;
-public :
-   Mesh() = default;
 
-   MeshT loadMesh(std::string fileadress);
+public:
+    Mesh() = default;
+
+    void loadMesh( std::string fileadress );
 };
