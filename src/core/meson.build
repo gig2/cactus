@@ -8,12 +8,12 @@ cactuscore_lib = library('cactuscore',
                         sources: [core_sources,
                                   core_headers],
 
-        dependencies: [ openmesh_dep
-                        ]
+        dependencies: [ openmesh_dep]
         , include_directories: [includeDir]
                        )
 
 
 cactuscore_dep = declare_dependency(link_with: cactuscore_lib,
+                                    dependencies: openmesh_dep,
                                    include_directories: [includeDir
                                                         ])

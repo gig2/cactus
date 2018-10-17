@@ -10,6 +10,9 @@ find_package(PkgConfig)
 
 find_package(Qt5 COMPONENTS Core Widgets Gui 3DCore 3DInput 3DRender 3DExtras REQUIRED)
 
+find_package(GLEW REQUIRED)
+
 pkg_check_modules(OPENMESH REQUIRED openmesh)
+pkg_check_modules(GLM REQUIRED glm)
 
 add_subdirectory(src)

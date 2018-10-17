@@ -21,7 +21,7 @@ target_include_directories(cactusgui PRIVATE
     $<BUILD_INTERFACE:${CMAKE_PROJECT_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    $<INSTALL_INTERFACE:include/Cactus)
+    $<INSTALL_INTERFACE:include/Cactus/gui)
 
 target_link_libraries(cactusgui PUBLIC
     Qt5::Widgets

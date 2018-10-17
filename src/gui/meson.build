@@ -34,5 +34,14 @@ cactusgui_lib = library('cactusgui',
 
 
 cactusgui_dep = declare_dependency(link_with: cactusgui_lib,
+                                    dependencies:
+                                    [qt5_widgets_dep,
+                                              qt5_gui_dep,
+                                              qt5_3dcore_dep,
+                                              qt5_3dinput_dep,
+                                              qt5_3drender_dep,
+                                              qt5_3dextras_dep,
+                                              qt5_opengl_dep,
+                                              gl_dep],
                                    include_directories: [includeDir
                                                         ])
