@@ -5,9 +5,9 @@ subdir('core')
 subdir('render')
 
 executable('cactus', sourcesFiles,
-           dependencies: [cactusgui_dep,
-                          cactuscore_dep,
-                          cactusrender_dep
+           dependencies: [cactus_gui_dep,
+                          cactus_core_dep,
+                          cactus_render_dep
                           ],
            include_directories: includeDir)
 

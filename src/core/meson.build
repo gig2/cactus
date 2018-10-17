@@ -1,19 +1,19 @@
-
 core_sources = files(['mesh.cpp',
                      ])
 
 core_headers = files(['mesh.h'])
 
-cactuscore_lib = library('cactuscore',
+core_include = include_directories('.')
+
+cactus_core_lib = library('cactus_core',
                         sources: [core_sources,
                                   core_headers],
 
         dependencies: [ openmesh_dep]
-        , include_directories: [includeDir]
+        , include_directories: [core_include]
                        )
 
 
-cactuscore_dep = declare_dependency(link_with: cactuscore_lib,
+cactus_core_dep = declare_dependency(link_with: cactus_core_lib,
                                     dependencies: openmesh_dep,
-                                   include_directories: [includeDir
-                                                        ])
+                                   include_directories: [core_include])

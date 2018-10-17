@@ -1,33 +1,33 @@
-set( guiSources
+set( gui_sources
   mainwindow.cpp
   modelvisu.cpp
   modelwidget.cpp)
 
 
-qt5_wrap_cpp( mocHeader
+qt5_wrap_cpp( gui_moc_headers
    mainwindow.h
    modelvisu.h
    modelwidget.h)
 
 
-qt5_wrap_ui( UiFiles
+qt5_wrap_ui( gui_ui
     ui/mainwindow.ui)
 
-   
-add_library(cactusgui ${guiSources}  ${UiFiles}
-                      ${mocHeader})
 
-target_include_directories(cactusgui PRIVATE
-    $<BUILD_INTERFACE:${CMAKE_PROJECT_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    $<INSTALL_INTERFACE:include/Cactus/gui)
+add_library(cactus_gui ${gui_sources}  ${gui_ui}
+                      ${gui_moc_headers})
 
-target_link_libraries(cactusgui PUBLIC
-    Qt5::Widgets
-    Qt5::Gui
-    Qt5::3DCore
-    Qt5::3DRender
-    Qt5::3DInput
-    Qt5::3DExtras
-    )
+target_include_directories(cactus_gui PRIVATE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
+
+target_include_directories(cactus_gui PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<INSTALL_INTERFACE:include/Cactus/gui)
+
+target_link_libraries(cactus_gui PUBLIC
+  Qt5::Widgets
+  Qt5::Gui
+  Qt5::3DCore
+  Qt5::3DRender
+  Qt5::3DInput
+  Qt5::3DExtras)

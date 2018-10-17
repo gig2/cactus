@@ -1,4 +1,3 @@
-
 gui_sources = files(['mainwindow.cpp',
                      'modelvisu.cpp',
                      'modelwidget.cpp'])
@@ -16,7 +15,10 @@ gui_processed = qt5_mod.preprocess(
   ui_files : [gui_ui]
 )
 
-cactusgui_lib = library('cactusgui',
+
+gui_include = include_directories('.')
+
+cactus_gui_lib = library('cactus_gui',
                         sources: [gui_sources,
                                gui_moc_headers,
                                gui_processed],
@@ -29,11 +31,11 @@ cactusgui_lib = library('cactusgui',
                         qt5_3dextras_dep,
                         qt5_opengl_dep,
                         gl_dep]
-        , include_directories: [includeDir]
+        , include_directories: gui_include
                        )
 
 
-cactusgui_dep = declare_dependency(link_with: cactusgui_lib,
+cactus_gui_dep = declare_dependency(link_with: cactus_gui_lib,
                                     dependencies:
                                     [qt5_widgets_dep,
                                               qt5_gui_dep,
@@ -43,5 +45,4 @@ cactusgui_dep = declare_dependency(link_with: cactusgui_lib,
                                               qt5_3dextras_dep,
                                               qt5_opengl_dep,
                                               gl_dep],
-                                   include_directories: [includeDir
-                                                        ])
+                                   include_directories: [gui_include])

@@ -13,9 +13,9 @@ target_include_directories(cactus PUBLIC
     )
 
 target_link_libraries(cactus PUBLIC
-   cactusgui
-   cactusrender
-   cactuscore
+   cactus_gui
+   cactus_render
+   cactus_core
     )
 
 set_target_properties(cactus PROPERTIES LINK_FLAGS
