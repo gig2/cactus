@@ -2,6 +2,7 @@ set (sourcesFiles
     main.cpp)
 
 add_subdirectory(gui)
+add_subdirectory(core)
 
 
 add_executable(cactus ${sourcesFiles} )
@@ -12,6 +13,7 @@ target_include_directories(cactus PUBLIC
 
 target_link_libraries(cactus PUBLIC
    cactusgui
+   cactuscore
     #OpenMVG::openMVG_camera
     #OpenMVG::openMVG_numeric
     )
