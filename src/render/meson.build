@@ -1,6 +1,8 @@
-render_headers = files(['shader.h'])
+render_headers = files(['meshnode.h',
+                        'shader.h'])
 
-render_sources = files(['shader.cpp'])
+render_sources = files(['meshnode.cpp',
+                        'shader.cpp'])
 
 render_include = include_directories('.')
 

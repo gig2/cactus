@@ -1,18 +1,28 @@
 #include <OpenMesh/Core/IO/MeshIO.hh>
+#include <OpenMesh/Core/Mesh/Attributes.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include <string>
 
-using MeshTraits = OpenMesh::DefaultTraits;
-using MeshT      = OpenMesh::TriMesh_ArrayKernelT<MeshTraits>;
+struct MeshTraits : public OpenMesh::DefaultTraits
+{
+    // use floating point
+    typedef OpenMesh::Vec3f Point;
+
+    // use vertex normals and vertex colors
+    VertexAttributes( OpenMesh::Attributes::Normal | OpenMesh::Attributes::Color );
+
+
+    // use face normals
+    FaceAttributes( OpenMesh::Attributes::Normal );
+};
+
+using MeshT = OpenMesh::TriMesh_ArrayKernelT<MeshTraits>;
 
 class Mesh
 {
-private:
-    MeshT mesh_;
-
 public:
-    Mesh() = default;
+    explicit Mesh( std::string filename );
 
-    void loadMesh( std::string fileadress );
+    MeshT mesh;
 };

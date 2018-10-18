@@ -1,7 +1,9 @@
 set (render_headers
+     meshnode.h
      shader.h)
 
 set (render_sources
+    meshnode.cpp
     shader.cpp)
 
 
