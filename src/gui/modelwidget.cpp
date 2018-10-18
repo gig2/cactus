@@ -8,6 +8,7 @@ ModelWidget::ModelWidget( QWidget* parent, Qt::WindowFlags f )
 
 void ModelWidget::loadModel( QString modelName )
 {
+#if 0
     auto* modelVisu = new ModelVisu( modelName );
 
     embededViews_ = QWidget::createWindowContainer( modelVisu );
@@ -24,4 +25,5 @@ void ModelWidget::loadModel( QString modelName )
     }
 
     layout()->addWidget( embededViews_ );
+#endif
 }

@@ -1,28 +1,34 @@
 #pragma once
 
-#include "mesh.h"
-
 #include <GL/glew.h>
+
+
+#include <OpenMesh/Core/Mesh/Attributes.hh>
+#include <OpenMesh/Core/Mesh/Traits.hh>
+#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
+
 
 #include <string>
 
 
+
+template <typename MeshT>
 class MeshNode
 {
 public:
-    explicit MeshNode( Mesh& meshView );
-
-
+    explicit MeshNode( MeshT& meshView );
 
 
     void updateVertexBuffer( int const positionLocation, int const colorLocation );
 
-    void draw();
+    void draw() const;
 
     ~MeshNode();
 
+    bool needToUpdate{true};
+
 private:
-    Mesh& mesh_;
+    MeshT& mesh_;
 
     GLuint vao_{0};
     GLuint indexBuffer_{0};
@@ -39,5 +45,6 @@ private:
     void regenerateBuffers_();
 };
 
+#include "meshnode-internals.hpp"
 
 // end mesh file

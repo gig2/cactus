@@ -14,13 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="ModelWidget" name="widget3d" native="true">
+   <widget class="ModelVisu" name="openGLWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>801</width>
-      <height>501</height>
+      <x>9</x>
+      <y>9</y>
+      <width>811</width>
+      <height>491</height>
      </rect>
     </property>
    </widget>
@@ -71,12 +71,11 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ModelWidget</class>
-   <extends>QWidget</extends>
-   <header>modelwidget.h</header>
-   <container>1</container>
+   <class>ModelVisu</class>
+   <extends>QOpenGLWidget</extends>
+   <header>modelvisu.h</header>
    <slots>
-    <slot>loadModel(QString)</slot>
+    <slot>addMesh(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -111,6 +110,22 @@
     <hint type="destinationlabel">
      <x>355</x>
      <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>modelToLoad(QString)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>addMesh(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>412</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>

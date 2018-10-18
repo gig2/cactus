@@ -1,10 +1,12 @@
 
+#include "modelvisu.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "modelwidget.h"
 
+#include <QDebug>
+#include <QFileDialog>
 #include <QMainWindow>
 
 #include <memory>
@@ -14,7 +16,7 @@ MainWindow::MainWindow( QWidget *parent )
     , ui{std::make_unique<Ui::MainWindow>()}
 {
     ui->setupUi( this );
-    connect( this, &MainWindow::modelToLoad, ui->widget3d, &ModelWidget::loadModel );
+    // connect( this, &MainWindow::modelToLoad, ui->widget3d, &ModelWidget::loadModel );
 }
 
 MainWindow::~MainWindow()

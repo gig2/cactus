@@ -1,8 +1,10 @@
 #pragma once
 
+#include "modelvisu.h"
+
+
 #include <QWidget>
 
-#include "modelvisu.h"
 
 class ModelWidget : public QWidget
 {

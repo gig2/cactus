@@ -1,13 +1,11 @@
 set( gui_sources
   mainwindow.cpp
-  modelvisu.cpp
-  modelwidget.cpp)
+  modelvisu.cpp)
 
 
 qt5_wrap_cpp( gui_moc_headers
    mainwindow.h
-   modelvisu.h
-   modelwidget.h)
+   modelvisu.h)
 
 
 qt5_wrap_ui( gui_ui
@@ -27,7 +25,9 @@ target_include_directories(cactus_gui PUBLIC
 target_link_libraries(cactus_gui PUBLIC
   Qt5::Widgets
   Qt5::Gui
-  Qt5::3DCore
-  Qt5::3DRender
-  Qt5::3DInput
-  Qt5::3DExtras)
+  Qt5::OpenGL
+  cactus_core
+  cactus_render)
+
+set_target_properties(cactus_gui PROPERTIES LINK_FLAGS
+  ${OPENMESH_LDFLAGS})

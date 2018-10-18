@@ -1,67 +1,119 @@
 #include "modelvisu.h"
 
-#include <Qt3DCore>
-#include <Qt3DExtras>
-#include <Qt3DRender>
-
 #include <memory>
 
-ModelVisu::ModelVisu( QString filename )
-    : Qt3DExtras::Qt3DWindow()
+ModelVisu::ModelVisu( QWidget *parent )
+    : QOpenGLWidget( parent )
 {
-    // Variables pour le déplacement caméra.
-    xspeed = yspeed = zspeed = 1.f;
-    // Set-up nécessaire pour l'affichage de l'objet en 3D
-    rootEntity  = std::make_unique<Qt3DCore::QEntity>();
-    material    = std::make_unique<Qt3DExtras::QPhongMaterial>( rootEntity.get() );
-    chestEntity = std::make_unique<Qt3DCore::QEntity>( rootEntity.get() );
-    myMesh      = std::make_unique<Qt3DRender::QMesh>( rootEntity.get() );
+    int major = 3;
+    int minor = 2;
 
-    myMesh->setSource( QUrl::fromLocalFile( filename ) );
-    chestEntity->addComponent( myMesh.get() );
-    chestEntity->addComponent( material.get() );
-    this->setRootEntity( rootEntity.get() );
-    // Opérations sur la caméra.
-    // camera()->lens()->setPerspectiveProjection(45.0f, 16.0f/9.0f, 0.1f, 1000.0f);
-    camera()->setPosition( QVector3D( 5.0, 5.0, 25.0f ) );
-    camera()->setViewCenter( QVector3D( 0, 0, 0 ) );
+    QSurfaceFormat format;
+
+    format.setDepthBufferSize( 24 );
+    format.setStencilBufferSize( 8 );
+    format.setVersion( major, minor );
+    format.setProfile( QSurfaceFormat::CoreProfile );
+
+    setFormat( format );
+
+    create();
+
+
+    objTransform_ = glm::rotate( objTransform_, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
 }
 
-void ModelVisu::keyPressEvent( QKeyEvent* event )
+
+
+void ModelVisu::initializeGL()
 {
-    switch ( event->key() )
+    glewExperimental = GL_TRUE;
+    GLenum initGlew{glewInit()};
+
+    if ( initGlew != GLEW_OK )
     {
-        case Qt::Key_D:
-            // Déplace la caméra vers la droite
-            camera()->translate( QVector3D( xspeed, 0, 0 ) );
-            break;
-        case Qt::Key_Q:
-            // Déplace la caméra vers la gauche
-            camera()->translate( QVector3D( -xspeed, 0, 0 ) );
-            break;
-        case Qt::Key_S:
-            // Déplace la caméra vers le bas
-            camera()->translate( QVector3D( 0, -yspeed, 0 ) );
-            break;
-        case Qt::Key_Z:
-            // Déplace la caméra vers le haut
-            camera()->translate( QVector3D( 0, yspeed, 0 ) );
-            break;
-        case Qt::Key_Up:
-            // Avancer la caméra
-            camera()->translate( QVector3D( 0, 0, zspeed ) );
-            break;
-        case Qt::Key_Down:
-            // Reculer la caméra
-            camera()->translate( QVector3D( 0, 0, -zspeed ) );
-            break;
-        default: break;
+        throw std::runtime_error(
+            reinterpret_cast<const char *>( glewGetErrorString( initGlew ) ) );
     }
+
+
+
+    simpleShader_.SetFile( "shader/color.vs", "shader/color.fs", "shader/color.gs" );
+
+
+    modelview_
+        = glm::lookAt( glm::vec3( -1., -1., 1. ), glm::vec3( 0., 0., 0. ), glm::vec3( 0, 0, 1 ) );
+
+    //
+    glClearColor( .0f, 0.f, 0.f, .0f );
 }
 
-void ModelVisu::mouseMoveEvent( QMouseEvent* event )
+void ModelVisu::resizeGL( int width, int height )
 {
-    /*qDebug() << "yo";
-    camera()->rotateAboutViewCenter(QQuaternion::rotationTo(QVector3D(event->pos().x(),
-    event->pos().y(), 0),QVector3D(0.f,0.f,0.f)));*/
+    //
+    float near = 0.01;
+    float far  = 100;
+    float fov  = 70.;
+
+    projection_ = glm::perspective( fov, static_cast<float>( width ) / height, near, far );
+}
+
+void ModelVisu::paintGL()
+{
+    //
+    glClear( GL_COLOR_BUFFER_BIT );
+
+    for ( auto &meshNode : meshNode_ )
+    {
+        if ( meshNode->needToUpdate )
+        {
+            meshNode->needToUpdate = false;
+            meshNode->updateVertexBuffer( positionLocation_, colorLocation_ );
+        }
+    }
+
+    simpleShader_.Enable();
+
+    glm::mat4 mvp = projection_ * modelview_;
+
+    auto mvpLoc = simpleShader_.GetUniformLocation( "MVP" );
+
+    // applyBunny Transforms
+
+    glm::mat4 bunnyMvp = mvp * objTransform_;
+
+    glUniformMatrix4fv( mvpLoc, 1, GL_FALSE, glm::value_ptr( bunnyMvp ) );
+
+    for ( auto const &node : meshNode_ )
+    {
+        node->draw();
+    }
+
+    simpleShader_.Disable();
+}
+
+void ModelVisu::addMesh( QString model )
+{
+    auto meshPtr = std::make_shared<Mesh>( model.toStdString() );
+    mesh_.push_back( meshPtr );
+
+    auto meshNodePtr = std::make_shared<MeshNode<decltype( meshPtr->mesh )>>( meshPtr->mesh );
+
+    meshNode_.push_back( meshNodePtr );
+
+    auto &mesh = meshPtr->mesh;
+
+    // set color for mesh
+    std::for_each( mesh.vertices_begin(), mesh.vertices_end(), [&mesh]( auto &vertex ) {
+        MeshT::Color color{1.0, 0.5, 0.25};
+        mesh.set_color( vertex, color );
+    } );
+
+    auto &meshNode = *meshNodePtr;
+
+    meshNode.needToUpdate = true;
+
+
+    // we need to repaint the widget
+    repaint();
 }

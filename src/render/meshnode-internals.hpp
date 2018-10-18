@@ -4,32 +4,34 @@
 
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <string>
 #include <vector>
 
 
-MeshNode::MeshNode( Mesh &meshView )
+template <typename MeshT>
+MeshNode<MeshT>::MeshNode( MeshT &meshView )
     : mesh_{meshView}
 {
 }
 
-void MeshNode::updateVertexBuffer( int const positionLocation, int const colorLocation )
+template <typename MeshT>
+void MeshNode<MeshT>::updateVertexBuffer( int const positionLocation, int const colorLocation )
 {
     //
 
-    auto const &mesh = mesh_.mesh;
 
-    numIndexes_ = mesh.n_faces() * verticesNumberPerFace_;
+    numIndexes_ = mesh_.n_faces() * verticesNumberPerFace_;
 
-    auto *vertexPointBuffer = mesh.points();
+    auto *vertexPointBuffer = mesh_.points();
 
     std::vector<unsigned int> indexes;
     indexes.reserve( numIndexes_ );
 
 
 
-    std::for_each( mesh.faces_begin(), mesh.faces_end(), [&mesh, &indexes]( auto const &faces ) {
-        std::transform( mesh.cfv_begin( faces ), mesh.cfv_end( faces ),
+    std::for_each( mesh_.faces_begin(), mesh_.faces_end(), [this, &indexes]( auto const &faces ) {
+        std::transform( mesh_.cfv_begin( faces ), mesh_.cfv_end( faces ),
                         std::back_inserter( indexes ),
                         []( auto const &faceVertex ) { return faceVertex.idx(); } );
     } );
@@ -37,11 +39,15 @@ void MeshNode::updateVertexBuffer( int const positionLocation, int const colorLo
 
     // let's put a color
     std::vector<GLfloat> colors;
-    colors.resize( mesh.n_vertices() * numberColors_ );
-    for ( auto &cols : colors )
-    {
-        cols = 0.5;
-    }
+    colors.reserve( mesh_.n_vertices() * numberColors_ );
+
+
+    std::for_each(
+        mesh_.vertices_begin(), mesh_.vertices_end(), [this, &colors]( auto const &vertex ) {
+            auto const &color = mesh_.color( vertex );
+
+            std::copy( std::begin( color ), std::end( color ), std::back_inserter( colors ) );
+        } );
 
 
     regenerateBuffers_();
@@ -49,7 +55,7 @@ void MeshNode::updateVertexBuffer( int const positionLocation, int const colorLo
     glBindVertexArray( vao_ );
 
     glBindBuffer( GL_ARRAY_BUFFER, vertexBuffer_ );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( decltype( *vertexPointBuffer ) ) * mesh.n_vertices(),
+    glBufferData( GL_ARRAY_BUFFER, sizeof( decltype( *vertexPointBuffer ) ) * mesh_.n_vertices(),
                   vertexPointBuffer, GL_STATIC_DRAW );
 
     glVertexAttribPointer( positionLocation, 3, GL_FLOAT, GL_FALSE,
@@ -70,7 +76,8 @@ void MeshNode::updateVertexBuffer( int const positionLocation, int const colorLo
     glBindVertexArray( 0 );
 }
 
-void MeshNode::draw()
+template <typename MeshT>
+void MeshNode<MeshT>::draw() const
 {
     //
     glBindVertexArray( vao_ );
@@ -78,12 +85,14 @@ void MeshNode::draw()
     glBindVertexArray( 0 );
 }
 
-MeshNode::~MeshNode()
+template <typename MeshT>
+MeshNode<MeshT>::~MeshNode()
 {
     cleanBuffers_();
 }
 
-void MeshNode::cleanBuffers_()
+template <typename MeshT>
+void MeshNode<MeshT>::cleanBuffers_()
 {
     if ( glIsBuffer( vao_ ) )
     {
@@ -103,7 +112,8 @@ void MeshNode::cleanBuffers_()
     }
 }
 
-void MeshNode::regenerateBuffers_()
+template <typename MeshT>
+void MeshNode<MeshT>::regenerateBuffers_()
 {
     cleanBuffers_();
 

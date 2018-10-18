@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(PkgConfig)
 
-find_package(Qt5 COMPONENTS Core Widgets Gui 3DCore 3DInput 3DRender 3DExtras REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets Gui OpenGL REQUIRED)
 
 find_package(GLEW REQUIRED)
 

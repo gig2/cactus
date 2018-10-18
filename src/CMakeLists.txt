@@ -1,9 +1,9 @@
 set (sourcesFiles
     main.cpp)
 
-add_subdirectory(gui)
 add_subdirectory(core)
 add_subdirectory(render)
+add_subdirectory(gui)
 
 
 add_executable(cactus ${sourcesFiles} )
@@ -14,8 +14,6 @@ target_include_directories(cactus PUBLIC
 
 target_link_libraries(cactus PUBLIC
    cactus_gui
-   cactus_render
-   cactus_core
     )
 
 set_target_properties(cactus PROPERTIES LINK_FLAGS

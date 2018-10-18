@@ -1,28 +1,55 @@
 #pragma once
 
-#include <Qt3DCore>
-#include <Qt3DExtras>
-#include <Qt3DRender>
-#include <QtWidgets>
+#include "mesh.h"
+#include "meshnode.h"
+#include "shader.h"
+
+#include <QOpenGLWidget>
+
+#ifndef GLM_FORCE_RADIANS
+#define GLM_FORCE_RADIANS
+#endif
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <memory>
+#include <vector>
 
-class ModelVisu : public Qt3DExtras::Qt3DWindow
+class ModelVisu : public QOpenGLWidget
 {
     Q_OBJECT
 public:
-    explicit ModelVisu( QString filename );
-    void keyPressEvent( QKeyEvent* event );
-    void mouseMoveEvent( QMouseEvent* event );
+    explicit ModelVisu( QWidget *parent );
+
+
+protected:
+    void initializeGL() override;
+
+    void resizeGL( int width, int height ) override;
+
+    void paintGL() override;
+
 
 private:
-    std::unique_ptr<Qt3DCore::QEntity> rootEntity;
-    std::unique_ptr<Qt3DRender::QMaterial> material;
-    std::unique_ptr<Qt3DCore::QEntity> chestEntity;
-    std::unique_ptr<Qt3DRender::QMesh> myMesh;
-    float xspeed, yspeed, zspeed;
-
 signals:
 
 public slots:
+    void addMesh( QString model );
+
+private:
+    // get them from shader
+    int const positionLocation_{0};
+    int const colorLocation_{1};
+
+
+    std::vector<std::shared_ptr<Mesh>> mesh_;
+    std::vector<std::shared_ptr<MeshNode<MeshT>>> meshNode_;
+
+    S3DE::Shader simpleShader_;
+
+    glm::mat4 objTransform_;
+
+    glm::mat4 projection_;
+    glm::mat4 modelview_;
 };
