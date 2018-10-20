@@ -1,6 +1,4 @@
 set (render_headers
-     meshnode.h
-     meshnode-internals.hpp
      shader.h)
 
 set (render_sources

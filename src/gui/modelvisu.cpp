@@ -97,7 +97,9 @@ void ModelVisu::addMesh( QString model )
     auto meshPtr = std::make_shared<Mesh>( model.toStdString() );
     mesh_.push_back( meshPtr );
 
-    auto meshNodePtr = std::make_shared<MeshNode<decltype( meshPtr->mesh )>>( meshPtr->mesh );
+    auto &meshView = *meshPtr;
+
+    auto meshNodePtr = std::make_shared<MeshNode<Mesh>>( meshView );
 
     meshNode_.push_back( meshNodePtr );
 
@@ -113,6 +115,7 @@ void ModelVisu::addMesh( QString model )
 
     meshNode.needToUpdate = true;
 
+    meshView.refreshBuffer();
 
     // we need to repaint the widget
     repaint();

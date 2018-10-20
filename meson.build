@@ -10,6 +10,11 @@ openmesh_dep     = dependency('openmesh', required:true)
 glm_dep = dependency('glm',required:true)
 glew_dep = dependency('glew', required:true)
 
+
+openglmeshrender_dep = dependency('OpenGLMeshRender', fallback: ['openglmeshrender', 'openglmeshrender_dep'])
+
+
+
 includeDir = include_directories('src')
 
 subdir('src')

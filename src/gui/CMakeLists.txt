@@ -26,8 +26,10 @@ target_link_libraries(cactus_gui PUBLIC
   Qt5::Widgets
   Qt5::Gui
   Qt5::OpenGL
+  OpenGL::GL
   cactus_core
-  cactus_render)
+  cactus_render
+  OpenGLMeshRender)
 
 set_target_properties(cactus_gui PROPERTIES LINK_FLAGS
   ${OPENMESH_LDFLAGS})

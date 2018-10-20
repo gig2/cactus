@@ -1,7 +1,9 @@
 #pragma once
 
+#include <GL/glew.h>
+
+#include "OpenGLMeshRender/meshnode.h"
 #include "mesh.h"
-#include "meshnode.h"
 #include "shader.h"
 
 #include <QOpenGLWidget>
@@ -44,7 +46,7 @@ private:
 
 
     std::vector<std::shared_ptr<Mesh>> mesh_;
-    std::vector<std::shared_ptr<MeshNode<MeshT>>> meshNode_;
+    std::vector<std::shared_ptr<MeshNode<Mesh>>> meshNode_;
 
     S3DE::Shader simpleShader_;
 

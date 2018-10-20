@@ -1,0 +1,3 @@
+[submodule "external/openglmeshrender"]
+	path = external/openglmeshrender
+	url = https://github.com/gig2/OpenGLMeshRender
