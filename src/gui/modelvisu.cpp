@@ -38,7 +38,7 @@ void ModelVisu::initializeGL()
 
 
 
-    simpleShader_.SetFile( "shader/color.vs", "shader/color.fs", "shader/color.gs" );
+    simpleShader_.SetFile( "shader/color.vert", "shader/color.frag", "shader/color.geom" );
 
 
     modelview_
