@@ -26,7 +26,8 @@ target_link_libraries(cactus_gui PUBLIC
   Qt5::Widgets
   Qt5::Gui
   Qt5::OpenGL
-  OpenGL::GL
+  GLEW::GLEW
+  ${OPENGL_LIBRARIES}
   cactus_core
   cactus_render
   OpenGLMeshRender)
