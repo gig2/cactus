@@ -1,7 +1,9 @@
 set (core_sources
-     mesh.cpp)
+     mesh.cpp
+     valence.cpp)
 set (core_headers
-     mesh.h )
+     mesh.h
+     valence.h)
 
 add_library(cactus_core ${core_sources} ${core_headers})
 
