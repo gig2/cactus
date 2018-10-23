@@ -22,16 +22,15 @@ using MeshT = OpenMesh::TriMesh_ArrayKernelT<MeshTraits>;
 
 class Mesh
 {
-private:
-    std::vector<unsigned int> indexes_;
-    std::vector<float> colors_;
-
 public:
+    using PointT = MeshTraits::Point;
+
+    using PointScalarT = PointT::value_type;
+
     explicit Mesh( std::string filename );
 
     MeshT mesh;
 
-    using PointT = MeshTraits::Point;
 
     void refreshBuffer();
 
@@ -46,4 +45,8 @@ public:
     float const* getColorsPointer() const { return colors_.data(); }
 
     // End interface for OpenGLMeshRender
+
+private:
+    std::vector<unsigned int> indexes_;
+    std::vector<float> colors_;
 };

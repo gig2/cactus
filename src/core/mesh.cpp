@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <stdexcept>
 
 Mesh::Mesh( std::string filename )
 {
