@@ -8,6 +8,7 @@ struct MeshTraits : public OpenMesh::DefaultTraits
 {
     // use floating point
     typedef OpenMesh::Vec3f Point;
+    typedef OpenMesh::Vec3f Color;
 
     // use vertex normals and vertex colors
     VertexAttributes( OpenMesh::Attributes::Normal | OpenMesh::Attributes::Color );
