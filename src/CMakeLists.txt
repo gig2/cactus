@@ -17,4 +17,4 @@ target_link_libraries(cactus PUBLIC
     )
 
 set_target_properties(cactus PROPERTIES LINK_FLAGS
-  ${OPENMESH_LDFLAGS})
+  "${OPENMESH_LDFLAGS}")

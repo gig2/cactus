@@ -18,4 +18,4 @@ target_include_directories(cactus_render PUBLIC
   $<INSTALL_INTERFACE:include/Cactus/render>)
 
 set_target_properties(cactus_render PROPERTIES LINK_FLAGS
-  ${OPENMESH_LDFLAGS})
+  "${OPENMESH_LDFLAGS}")

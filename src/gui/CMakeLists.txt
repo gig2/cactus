@@ -33,4 +33,4 @@ target_link_libraries(cactus_gui PUBLIC
   OpenGLMeshRender)
 
 set_target_properties(cactus_gui PROPERTIES LINK_FLAGS
-  ${OPENMESH_LDFLAGS})
+  "${OPENMESH_LDFLAGS}")
