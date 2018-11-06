@@ -13,8 +13,16 @@ glew_dep = dependency('glew', required:true)
 
 openglmeshrender_dep = dependency('OpenGLMeshRender', fallback: ['openglmeshrender', 'openglmeshrender_dep'])
 
-
+test_option = get_option('test')
+if (test_option)
+  gtest_dep = dependency('gtest', required:false,fallback:['gtest','gtest_dep'])
+  gmock_dep = dependency('gmock', required:false,fallback:['gtest','gmock_dep'])
+endif
 
 includeDir = include_directories('src')
 
 subdir('src')
+
+if (test_option)
+  subdir('tests')
+endif

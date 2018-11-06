@@ -3,6 +3,10 @@ project(Cactus CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
+option(test "Build test with google test" OFF)
+
+
 # Instruct CMake to run moc automatically when needed
 set(CMAKE_AUTOMOC ON)
 
@@ -61,3 +65,29 @@ endif()
 
 
 add_subdirectory(src)
+
+
+
+# test
+if (test)
+
+  if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/external/googletest/CMakeLists.txt)
+    if (NOT Git_FOUND)
+      message(FATAL_ERROR "Git cannot be found and googletest submodule is not init")
+    else()
+      message("Init googletest subprojects")
+
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule init external/googletest
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule update external/googletest
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
+  endif()
+
+  add_subdirectory(external/googletest)
+  enable_testing()
+
+  add_subdirectory(tests)
+
+endif()

@@ -4,3 +4,6 @@
 [submodule "external/openmesh"]
     path = external/openmesh
     url = https://github.com/gig2/OpenMesh
+[submodule "external/googletest"]
+	path = external/googletest
+	url = https://github.com/google/googletest
