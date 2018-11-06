@@ -8,8 +8,6 @@ Valence::Valence(const MeshT &mesh) {
 
 void Valence::valence_init(const MeshT &mesh)
 {
-    valence_par_points.clear();
-    valence_par_points_trie.clear();
     auto vIt = mesh.vertices_begin();
     while( vIt != mesh.vertices_end() ){
         valence_par_points.push_back((int)mesh.valence(*vIt));
