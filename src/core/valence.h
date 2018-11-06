@@ -14,9 +14,6 @@ public:
     // constructeur par défaut.
     explicit Valence(const MeshT &mesh);
 
-    // effectue le remplissage du vector "valence_par_points".
-    void valence_init(const MeshT &mesh);
-
     // renvois la moyenne des valences des sommets du meshage.
     float moyenne_valence();
 
@@ -26,6 +23,9 @@ public:
 
     int max_valence();
 
+private:
+    // effectue le remplissage du vector "valence_par_points".
+    void valence_init(const MeshT &mesh);
 };
 
 #endif // VALENCE_H
