@@ -1,3 +1,5 @@
+#pragma once
+
 #include <OpenMesh/Core/IO/MeshIO.hh>
 #include <OpenMesh/Core/Mesh/Attributes.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>

@@ -1,7 +1,7 @@
 core_sources = files(['mesh.cpp',
                       'valence.cpp',])
 
-core_headers = files(['mesh.h'
+core_headers = files(['mesh.h',
                       'valence.h'])
 
 core_include = include_directories('.')
