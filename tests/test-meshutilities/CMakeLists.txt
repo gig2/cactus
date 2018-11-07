@@ -1,4 +1,9 @@
-add_executable(test-meshutilities main.cpp)
+add_executable(test-meshutilities
+  main.cpp
+  cube.h
+  cube.cpp
+  test_meshutilities.cpp
+  )
 
 target_include_directories(test-meshutilities PRIVATE
   $<BUILD_INTERFACE:${gtest_SOURCE_DIR}/include>
