@@ -16,9 +16,9 @@ find_package(Qt5 COMPONENTS Core Widgets Gui OpenGL REQUIRED)
 
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(glm REQUIRED)
 
 pkg_check_modules(OPENMESH openmesh)
-pkg_check_modules(GLM REQUIRED glm)
 
 
 find_package(Git)
