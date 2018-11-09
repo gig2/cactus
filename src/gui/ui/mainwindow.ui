@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
+    <width>1020</width>
     <height>561</height>
    </rect>
   </property>
@@ -24,19 +24,136 @@
      </rect>
     </property>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>10</y>
+      <width>160</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="3" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>roll</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="rollSlider">
+         <property name="maximum">
+          <number>360</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="rollView"/>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>pitch</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="pitchSlider">
+         <property name="maximum">
+          <number>360</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="pitchView"/>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>yaw</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="yawSlider">
+         <property name="maximum">
+          <number>360</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="yawView"/>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Euler Angle</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>140</y>
+      <width>160</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Scale Factor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="scaleFactorSelector">
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>825</width>
+     <width>1020</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuObj_renderer">
     <property name="title">
-     <string>File</string>
+     <string>Fi&amp;le</string>
     </property>
     <addaction name="openOBJ"/>
     <addaction name="separator"/>
@@ -59,12 +176,12 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="openOBJ">
    <property name="text">
-    <string>Open OBJ</string>
+    <string>&amp;Open OBJ</string>
    </property>
   </action>
   <action name="quit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
   </action>
  </widget>
@@ -76,6 +193,10 @@
    <header>modelvisu.h</header>
    <slots>
     <slot>addMesh(QString)</slot>
+    <slot>setYaw(int)</slot>
+    <slot>setPitch(int)</slot>
+    <slot>setRoll(int)</slot>
+    <slot>setScale(double)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -122,6 +243,118 @@
     <hint type="sourcelabel">
      <x>412</x>
      <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yawSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setYaw(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pitchSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setPitch(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rollSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setRoll(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yawSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>yawView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>900</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>966</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rollSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>rollView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>966</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pitchSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>pitchView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>892</x>
+     <y>406</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>956</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scaleFactorSelector</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setScale(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>191</y>
     </hint>
     <hint type="destinationlabel">
      <x>414</x>

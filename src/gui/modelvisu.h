@@ -38,6 +38,10 @@ signals:
 
 public slots:
     void addMesh( QString model );
+    void setYaw( int );
+    void setPitch( int );
+    void setRoll( int );
+    void setScale( double );
 
 private:
     // get them from shader
@@ -52,6 +56,18 @@ private:
 
     glm::mat4 objTransform_;
 
+    glm::mat4 eulerTransform_;
+
+    glm::mat4 scaleTransform_;
+
     glm::mat4 projection_;
     glm::mat4 modelview_;
+
+    float yaw{0.};
+    float pitch{0.};
+    float roll{0.};
+
+    float scale_{1.};
+
+    void updateEuler();
 };

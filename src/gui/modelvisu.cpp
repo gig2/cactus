@@ -1,5 +1,10 @@
 #include "modelvisu.h"
 
+#ifndef GLM_ENABLE_EXPERIMENTAL
+#define GLM_ENABLE_EXPERIMENTAL
+#endif
+#include <glm/gtx/euler_angles.hpp>
+
 #include <memory>
 
 ModelVisu::ModelVisu( QWidget *parent )
@@ -20,7 +25,10 @@ ModelVisu::ModelVisu( QWidget *parent )
     create();
 
 
-    objTransform_ = glm::rotate( objTransform_, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
+    objTransform_   = glm::rotate( objTransform_, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
+    eulerTransform_ = glm::eulerAngleXYZ( yaw, pitch, roll );
+
+    scaleTransform_ = glm::scale( glm::mat4{}, glm::vec3{scale_, scale_, scale_} );
 }
 
 
@@ -80,7 +88,8 @@ void ModelVisu::paintGL()
 
     // applyBunny Transforms
 
-    glm::mat4 bunnyMvp = mvp * objTransform_;
+    glm::mat4 bunnyMvp = mvp * objTransform_ * eulerTransform_ * scaleTransform_;
+
 
     glUniformMatrix4fv( mvpLoc, 1, GL_FALSE, glm::value_ptr( bunnyMvp ) );
 
@@ -91,6 +100,7 @@ void ModelVisu::paintGL()
 
     simpleShader_.Disable();
 }
+
 
 void ModelVisu::addMesh( QString model )
 {
@@ -118,5 +128,38 @@ void ModelVisu::addMesh( QString model )
     meshView.refreshBuffer();
 
     // we need to repaint the widget
-    repaint();
+    update();
+}
+
+void ModelVisu::setYaw( int value )
+{
+    yaw = glm::radians( static_cast<float>( value ) );
+    updateEuler();
+    update();
+}
+
+void ModelVisu::setPitch( int value )
+{
+    pitch = glm::radians( static_cast<float>( value ) );
+    updateEuler();
+    update();
+}
+
+void ModelVisu::setRoll( int value )
+{
+    roll = glm::radians( static_cast<float>( value ) );
+    updateEuler();
+    update();
+}
+
+void ModelVisu::setScale( double scale )
+{
+    scale_          = scale;
+    scaleTransform_ = glm::scale( glm::mat4{}, glm::vec3{scale_, scale_, scale_} );
+    update();
+}
+
+void ModelVisu::updateEuler()
+{
+    eulerTransform_ = glm::eulerAngleXYZ( yaw, pitch, roll );
 }
