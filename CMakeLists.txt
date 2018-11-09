@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 option(test "Build test with google test" OFF)
+option(documentation "Generate documentation with doxygen" OFF)
 
 
 # Instruct CMake to run moc automatically when needed
@@ -89,5 +90,20 @@ if (test)
   enable_testing()
 
   add_subdirectory(tests)
+
+endif()
+
+# documentation
+if (documentation)
+  find_package(Doxygen REQUIRED)
+
+  set(DOXYGEN_GENERATE_XML YES)
+  set(DOXYGEN_GENERATE_HTML YES)
+
+  doxygen_add_docs(doxygen
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/openglmeshrender
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 endif()
