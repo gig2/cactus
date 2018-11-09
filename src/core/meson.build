@@ -1,5 +1,4 @@
 core_sources = files(['mesh.cpp',
-                      'meshutilities.cpp',
                       'valence.cpp',])
 
 core_headers = files(['mesh.h',

@@ -14,36 +14,44 @@ auto numberOfFaces( MeshType const& mesh )
 }
 
 
+/** \brief Given a mesh and a faceHandle compute one normal from the first 3 vertices
+ *
+ * \pre faceHandle should be a valid handle for the mesh
+ * \pre the face should have at least 3 vertices
+ */
+template <typename MeshType, typename FaceHandle>
+auto normalFromTriangle( MeshType const& mesh, FaceHandle const& faceHandle )
+{
+    // Here we assume that a faces contains at least 3 vertices
+    auto originPointIt = mesh.cfv_iter( faceHandle );
+    auto secondPointIt = std::next( originPointIt );
+    auto thirdPointIt  = std::next( secondPointIt );
+
+    auto vecFromPoint = [&mesh]( auto const& originIt, auto const& destinationIt ) {
+        return mesh.point( *destinationIt ) - mesh.point( *originIt );
+    };
+
+    auto firstBaseElem = vecFromPoint( originPointIt, secondPointIt );
+
+    auto secondBaseElem = vecFromPoint( secondPointIt, thirdPointIt );
+
+    return cross( firstBaseElem, secondBaseElem );
+}
+
+
+
+/** \brief Given a mesh and two faceHandle, compute the non signed angle between those two faces
+ *
+ * \pre lhs and rhs should each be a valid handle for the mesh
+ * \pre each faces should have at least 3 vertices
+ *
+ */
 template <typename MeshType, typename FaceHandle>
 auto angleBetweenFaces( MeshType const& mesh, FaceHandle const& lhs, FaceHandle const& rhs )
 {
-    //
+    auto normalLhs = normalFromTriangle( mesh, lhs );
 
-    auto originLhs = mesh.cfv_iter( lhs );
-
-    auto head0 = std::next( originLhs );
-
-    auto baseLhs0 = mesh.point( *head0 ) - mesh.point( *originLhs );
-
-    auto head1 = std::next( head0 );
-
-    auto baseLhs1 = mesh.point( *head1 ) - mesh.point( *head0 );
-
-
-    auto originRhs = mesh.cfv_iter( rhs );
-
-    head0 = std::next( originRhs );
-
-    auto baseRhs0 = mesh.point( *head0 ) - mesh.point( *originRhs );
-
-    head1 = std::next( head0 );
-
-    auto baseRhs1 = mesh.point( *head1 ) - mesh.point( *head0 );
-
-
-    auto normalLhs = cross( baseLhs0, baseLhs1 );
-
-    auto normalRhs = cross( baseRhs0, baseRhs1 );
+    auto normalRhs = normalFromTriangle( mesh, rhs );
 
     normalLhs.normalize();
     normalRhs.normalize();

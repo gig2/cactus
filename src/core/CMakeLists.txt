@@ -5,7 +5,6 @@ set (core_sources
 
 set (core_headers
      mesh.h
-     meshutilities.cpp
      valence.h)
 
 add_library(cactus_core ${core_sources} ${core_headers})
