@@ -29,7 +29,7 @@ target_link_libraries(cactus_gui PUBLIC
   GLEW::GLEW
   ${OPENGL_LIBRARIES}
   cactus_core
-  cactus_render
+  OpenGLShader
   OpenGLMeshRender)
 
 set_target_properties(cactus_gui PROPERTIES LINK_FLAGS

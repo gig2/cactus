@@ -46,7 +46,25 @@ void ModelVisu::initializeGL()
 
 
 
-    simpleShader_.SetFile( "shader/color.vert", "shader/color.frag", "shader/color.geom" );
+
+    simpleShader_.setVertexShader( "shader/color.vert" );
+    simpleShader_.setFragmentShader( "shader/color.frag" );
+    try
+    {
+        simpleShader_.Load();
+    }
+    catch ( std::exception const &e )
+    {
+        std::cerr << e.what() << "\n";
+    }
+    catch ( std::string const &errorStr )
+    {
+        std::cerr << errorStr << "\n";
+    }
+    catch ( ... )
+    {
+        std::cerr << "unknown exception\n";
+    }
 
 
     modelview_

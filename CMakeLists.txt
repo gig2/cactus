@@ -67,6 +67,28 @@ endif()
 
 add_subdirectory(src)
 
+# OpenGLShader support
+find_package(OpenGLShader CONFIG QUIET)
+
+if (NOT OpenGLShader_FOUND)
+
+  if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/external/openglshader/CMakeLists.txt)
+    if (NOT Git_FOUND)
+      message(FATAL_ERROR "Git cannot be found and OpenGLShader submodule is not init")
+    else()
+      message("Init OpenGLShader subprojects")
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule init external/openglshader
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule update external/openglshader
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
+
+  endif()
+
+  add_subdirectory(external/openglshader)
+
+endif()
 
 
 # test

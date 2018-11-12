@@ -26,7 +26,7 @@ cactus_gui_lib = library('cactus_gui',
                         qt5_opengl_dep,
                         gl_dep,
                         cactus_core_dep,
-                        cactus_render_dep,
+                        openglshader_dep,
                         openglmeshrender_dep]
         , include_directories: gui_include
                        )
@@ -39,6 +39,6 @@ cactus_gui_dep = declare_dependency(link_with: cactus_gui_lib,
                                               qt5_opengl_dep,
                                               gl_dep,
                                               cactus_core_dep,
-                                              cactus_render_dep,
+                                              openglshader_dep,
                                               openglmeshrender_dep],
                                    include_directories: [gui_include])
