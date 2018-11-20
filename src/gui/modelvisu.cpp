@@ -87,7 +87,9 @@ void ModelVisu::resizeGL( int width, int height )
 void ModelVisu::paintGL()
 {
     //
-    glClear( GL_COLOR_BUFFER_BIT );
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+    glEnable( GL_DEPTH_TEST );
 
     for ( auto &meshNode : meshNode_ )
     {
@@ -133,11 +135,22 @@ void ModelVisu::addMesh( QString model )
 
     auto &mesh = meshPtr->mesh;
 
+    int colorIndex     = 0;
+    int const maxColor = 100;
+
     // set color for mesh
-    std::for_each( mesh.vertices_begin(), mesh.vertices_end(), [&mesh]( auto &vertex ) {
-        MeshT::Color color{1.0, 0.5, 0.25};
-        mesh.set_color( vertex, color );
-    } );
+    std::for_each( mesh.vertices_begin(), mesh.vertices_end(),
+                   [&mesh, &colorIndex]( auto &vertex ) {
+                       MeshT::Color color1{1.0, 0., 0.};
+                       MeshT::Color color2{0.0, 0., 1.};
+
+                       float t    = colorIndex / static_cast<float>( maxColor );
+                       auto color = color1 * ( 1.f - t ) + color2 * t;
+
+                       colorIndex = ( colorIndex + 1 ) % maxColor;
+
+                       mesh.set_color( vertex, color );
+                   } );
 
     auto &meshNode = *meshNodePtr;
 
