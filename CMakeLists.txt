@@ -17,7 +17,6 @@ find_package(Qt5 COMPONENTS Core Widgets Gui OpenGL REQUIRED)
 
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(glm REQUIRED)
 
 pkg_check_modules(OPENMESH openmesh)
 
@@ -39,6 +38,28 @@ if (NOT OPENMESH_FOUND)
   endif()
 
   add_subdirectory(external/openmesh)
+endif()
+
+find_package(glm CONFIG QUIET)
+
+if (NOT glm_FOUND)
+
+  if (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/external/glm/CMakeLists.txt)
+    if (NOT Git_FOUND)
+      message(FATAL_ERROR "Git cannot be found and glm submodule is not init")
+    else()
+      message("Init glm subprojects")
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule init external/glm
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule update external/glm
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
+
+  endif()
+
+  add_subdirectory(external/glm)
+
 endif()
 
 # OpenMeshRender support
