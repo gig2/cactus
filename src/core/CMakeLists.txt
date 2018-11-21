@@ -4,6 +4,7 @@ set (core_sources
      valence.cpp)
 
 set (core_headers
+     diedre_stats.h
      mesh.h
      valence.h)
 
