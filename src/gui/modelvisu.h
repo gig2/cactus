@@ -5,6 +5,7 @@
 #include "OpenGLMeshRender/meshnode.h"
 #include "OpenGLShader/shader.h"
 #include "mesh.h"
+#include "valence.h"
 
 #include <QOpenGLWidget>
 
@@ -25,6 +26,12 @@ public:
     explicit ModelVisu( QWidget *parent );
 
 
+signals:
+    void minValenceChanged( int );
+    void maxValenceChanged( int );
+    void medianValenceChanged( double );
+    void averageValenceChanged( double );
+
 protected:
     void initializeGL() override;
 
@@ -33,8 +40,7 @@ protected:
     void paintGL() override;
 
 
-private:
-signals:
+
 
 public slots:
     void addMesh( QString model );
@@ -42,6 +48,7 @@ public slots:
     void setPitch( int );
     void setRoll( int );
     void setScale( double );
+    void computeValenceRequested();
 
 private:
     // get them from shader
@@ -51,6 +58,9 @@ private:
 
     std::vector<std::shared_ptr<Mesh>> mesh_;
     std::vector<std::shared_ptr<MeshNode<Mesh>>> meshNode_;
+
+    std::vector<Valence> valences_;
+
 
     S3DE::Shader simpleShader_;
 
@@ -63,11 +73,12 @@ private:
     glm::mat4 projection_;
     glm::mat4 modelview_;
 
-    float yaw{0.};
-    float pitch{0.};
-    float roll{0.};
+    float yaw_{0.};
+    float pitch_{0.};
+    float roll_{0.};
 
     float scale_{1.};
 
-    void updateEuler();
+    void updateEuler_();
+    void updateValenceColor_();
 };
