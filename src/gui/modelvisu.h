@@ -3,8 +3,8 @@
 #include <GL/glew.h>
 
 #include "OpenGLMeshRender/meshnode.h"
+#include "OpenGLShader/shader.h"
 #include "mesh.h"
-#include "shader.h"
 
 #include <QOpenGLWidget>
 

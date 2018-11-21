@@ -7,3 +7,6 @@
 [submodule "external/googletest"]
 	path = external/googletest
 	url = https://github.com/google/googletest
+[submodule "external/openglshader"]
+	path = external/openglshader
+	url = https://github.com/gig2/OpenGLShader

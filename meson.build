@@ -12,6 +12,7 @@ glew_dep = dependency('glew', required:true)
 
 
 openglmeshrender_dep = dependency('OpenGLMeshRender', fallback: ['openglmeshrender', 'openglmeshrender_dep'])
+openglshader_dep = dependency('OpenGLShader', fallback: ['openglshader', 'openglshader_dep'])
 
 test_option = get_option('test')
 if (test_option)
