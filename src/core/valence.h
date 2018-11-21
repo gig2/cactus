@@ -1,8 +1,8 @@
 #ifndef VALENCE_H
 #define VALENCE_H
 
-#include <vector>
 #include "mesh.h"
+#include <vector>
 
 class Valence
 {
@@ -12,20 +12,20 @@ public:
     std::vector<int> valence_par_points_trie;
 
     // constructeur par défaut.
-    explicit Valence(const MeshT &mesh);
+    explicit Valence( const MeshT &mesh );
 
     // renvois la moyenne des valences des sommets du meshage.
-    float moyenne_valence();
+    float moyenne_valence() const;
 
-    float mediane_valence();
+    float mediane_valence() const;
 
-    int min_valence();
+    int min_valence() const;
 
-    int max_valence();
+    int max_valence() const;
 
 private:
     // effectue le remplissage du vector "valence_par_points".
-    void valence_init(const MeshT &mesh);
+    void valence_init( const MeshT &mesh );
 };
 
 #endif // VALENCE_H
