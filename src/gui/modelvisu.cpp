@@ -7,6 +7,7 @@
 
 #include <memory>
 
+
 ModelVisu::ModelVisu( QWidget *parent )
     : QOpenGLWidget( parent )
 {
@@ -26,7 +27,7 @@ ModelVisu::ModelVisu( QWidget *parent )
 
 
     objTransform_   = glm::rotate( objTransform_, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
-    eulerTransform_ = glm::eulerAngleXYZ( yaw, pitch, roll );
+    eulerTransform_ = glm::eulerAngleXYZ( yaw_, pitch_, roll_ );
 
     scaleTransform_ = glm::scale( glm::mat4{}, glm::vec3{scale_, scale_, scale_} );
 }
@@ -91,15 +92,6 @@ void ModelVisu::paintGL()
 
     glEnable( GL_DEPTH_TEST );
 
-    for ( auto &meshNode : meshNode_ )
-    {
-        if ( meshNode->needToUpdate )
-        {
-            meshNode->needToUpdate = false;
-            meshNode->updateVertexBuffer( positionLocation_, colorLocation_ );
-        }
-    }
-
     simpleShader_.Enable();
 
     glm::mat4 mvp = projection_ * modelview_;
@@ -154,9 +146,11 @@ void ModelVisu::addMesh( QString model )
 
     auto &meshNode = *meshNodePtr;
 
-    meshNode.needToUpdate = true;
-
     meshView.refreshBuffer();
+
+    makeCurrent();
+    meshNode.updateVertexBuffer( positionLocation_, colorLocation_ );
+    doneCurrent();
 
     // we need to repaint the widget
     update();
@@ -164,22 +158,22 @@ void ModelVisu::addMesh( QString model )
 
 void ModelVisu::setYaw( int value )
 {
-    yaw = glm::radians( static_cast<float>( value ) );
-    updateEuler();
+    yaw_ = glm::radians( static_cast<float>( value ) );
+    updateEuler_();
     update();
 }
 
 void ModelVisu::setPitch( int value )
 {
-    pitch = glm::radians( static_cast<float>( value ) );
-    updateEuler();
+    pitch_ = glm::radians( static_cast<float>( value ) );
+    updateEuler_();
     update();
 }
 
 void ModelVisu::setRoll( int value )
 {
-    roll = glm::radians( static_cast<float>( value ) );
-    updateEuler();
+    roll_ = glm::radians( static_cast<float>( value ) );
+    updateEuler_();
     update();
 }
 
@@ -190,7 +184,93 @@ void ModelVisu::setScale( double scale )
     update();
 }
 
-void ModelVisu::updateEuler()
+void ModelVisu::computeValenceRequested()
 {
-    eulerTransform_ = glm::eulerAngleXYZ( yaw, pitch, roll );
+    // compute the valence here
+    int minValence        = 0;
+    int maxValence        = 0;
+    double medianValence  = 0.;
+    double averageValence = 0.;
+
+    if ( mesh_.size() == 0 )
+        return;
+
+    valences_.clear();
+    valences_.reserve( mesh_.size() );
+
+    for ( auto const &mesh : mesh_ )
+    {
+        valences_.emplace_back( mesh->mesh );
+    }
+
+    auto const &valence = valences_.front();
+
+    minValence = valence.min_valence();
+    maxValence = valence.max_valence();
+
+    medianValence  = static_cast<double>( valence.mediane_valence() );
+    averageValence = static_cast<double>( valence.moyenne_valence() );
+
+
+    minValenceChanged( minValence );
+    maxValenceChanged( maxValence );
+    medianValenceChanged( medianValence );
+    averageValenceChanged( averageValence );
+
+    updateValenceColor_();
+}
+
+void ModelVisu::updateEuler_()
+{
+    eulerTransform_ = glm::eulerAngleXYZ( yaw_, pitch_, roll_ );
+}
+
+void ModelVisu::updateValenceColor_()
+{
+    using Color = decltype( std::declval<Mesh>().mesh )::Color;
+    for ( int index = 0; index < mesh_.size(); ++index )
+    {
+        auto &mesh = mesh_[ index ]->mesh;
+
+        auto const &valence  = valences_[ index ];
+        int const minValence = valence.min_valence();
+        int const maxValence = valence.max_valence();
+
+        int vertexIdx{0};
+        for ( auto vertIt = mesh.vertices_begin(); vertIt != mesh.vertices_end();
+              ++vertIt, ++vertexIdx )
+        {
+            auto &vertex = *vertIt;
+
+            Color color1{1.0, 0., 0.};
+            Color color2{0.0, 0., 1.};
+
+
+            int valenceValue{valence.valence_par_points[ vertexIdx ]};
+
+            float t         = 0.f;
+            int const range = maxValence - minValence;
+            if ( range != 0 )
+            {
+                t = ( valenceValue - minValence ) / static_cast<float>( range );
+            }
+            auto color = color1 * ( 1.f - t ) + color2 * t;
+
+
+            mesh.set_color( vertex, color );
+        }
+    }
+
+    for ( auto &mesh : mesh_ )
+    {
+        mesh->refreshBuffer();
+    }
+
+    makeCurrent();
+    for ( auto &meshNode : meshNode_ )
+    {
+        meshNode->updateVertexBuffer( positionLocation_, colorLocation_ );
+    }
+    doneCurrent();
+    update();
 }
