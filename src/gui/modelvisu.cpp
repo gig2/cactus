@@ -205,11 +205,11 @@ void ModelVisu::computeValenceRequested()
 
     auto const &valence = valences_.front();
 
-    minValence = min_sorted(valence.cbegin(), valence.cend());
-    maxValence = max_sorted(valence.cbegin(), valence.cend());
+    minValence = min_sorted( valence.cbegin(), valence.cend() );
+    maxValence = max_sorted( valence.cbegin(), valence.cend() );
 
-    medianValence  = mediane_sorted(valence.cbegin(), valence.cend());
-    averageValence = moyenne(valence.cbegin(), valence.cend());
+    medianValence  = mediane_sorted( valence.cbegin(), valence.cend() );
+    averageValence = moyenne( valence.cbegin(), valence.cend() );
 
 
     minValenceChanged( minValence );
@@ -233,12 +233,10 @@ void ModelVisu::updateValenceColor_()
         auto &mesh = mesh_[ index ]->mesh;
 
         auto const &valence  = valences_[ index ];
-        int const minValence = min_sorted(valence.cbegin(), valence.cend());
-        int const maxValence = max_sorted(valence.cbegin(), valence.cend());
+        int const minValence = min_sorted( valence.cbegin(), valence.cend() );
+        int const maxValence = max_sorted( valence.cbegin(), valence.cend() );
 
-        int vertexIdx{0};
-        for ( auto vertIt = mesh.vertices_begin(); vertIt != mesh.vertices_end();
-              ++vertIt, ++vertexIdx )
+        for ( auto vertIt = mesh.vertices_begin(); vertIt != mesh.vertices_end(); ++vertIt )
         {
             auto &vertex = *vertIt;
 
@@ -246,7 +244,7 @@ void ModelVisu::updateValenceColor_()
             Color color2{0.0, 0., 1.};
 
 
-            int valenceValue = valence.getValenceOfPoint(vertexIdx);
+            int valenceValue{static_cast<int>( mesh.valence( *vertIt ) )};
 
             float t         = 0.f;
             int const range = maxValence - minValence;
