@@ -19,18 +19,23 @@ double moyenne( inputIT begin, inputIT end )
 template <typename inputIT>
 double mediane_sorted( inputIT begin, inputIT end )
 {
+    if ( begin == end )
+        return 0.;
     int nb_element = std::distance( begin, end );
-    auto iter      = begin;
+
     if ( nb_element % 2 == 1 )
-        return *( iter + ( nb_element + 1 ) / 2 );
+    {
+        auto iter = begin;
+        std::advance( iter, ( nb_element + 1 ) / 2 - 1 );
+        return *iter;
+    }
     else
     {
-        int m = nb_element / 2, med = 0;
-        iter += m;
-        med += *iter;
-        iter++;
-        med += *iter;
-        return med;
+        auto lower = begin;
+        std::advance( lower, nb_element / 2 - 1 );
+        auto upper = std::next( lower );
+
+        return ( *lower + *upper ) / 2.;
     }
 }
 
