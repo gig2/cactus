@@ -73,16 +73,12 @@ public:
     // constructeur par défaut.
     explicit Valence( const MeshT &mesh );
 
-    int getValenceOfPoint( int pointID ) const;
-
     // renvois la moyenne des valences des sommets du meshage.
 
 
 private:
     // effectue le remplissage du vector "valence_par_points".
     void valence_init( const MeshT &mesh );
-
-    const MeshT &meshview;
 };
 
 #endif // VALENCE_H

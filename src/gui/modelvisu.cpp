@@ -244,7 +244,7 @@ void ModelVisu::updateValenceColor_()
             Color color2{0.0, 0., 1.};
 
 
-            int valenceValue{static_cast<int>( mesh.valence( *vertIt ) )};
+            int valenceValue = (int)mesh.valence(*vertIt);
 
             float t         = 0.f;
             int const range = maxValence - minValence;
