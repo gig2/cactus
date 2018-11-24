@@ -23,9 +23,11 @@ public:
 
 private slots:
     void loadObjRequested();
+    void saveDiedreRequested();
 
 signals:
     void modelToLoad( QString model );
+    void diedreFilename( QString file );
 
 private:
     std::unique_ptr<Ui::MainWindow> ui;

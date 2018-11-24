@@ -39,3 +39,15 @@ void MainWindow::loadObjRequested()
         qDebug() << filename;
     }
 }
+
+void MainWindow::saveDiedreRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of diedre" ) );
+
+    if ( !filename.isNull() )
+    {
+        diedreFilename( filename );
+    }
+}

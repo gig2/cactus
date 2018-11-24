@@ -391,6 +391,7 @@
      <string>Fi&amp;le</string>
     </property>
     <addaction name="openOBJ"/>
+    <addaction name="actionSave_diedre_info"/>
     <addaction name="separator"/>
     <addaction name="quit"/>
    </widget>
@@ -419,6 +420,11 @@
     <string>&amp;Quit</string>
    </property>
   </action>
+  <action name="actionSave_diedre_info">
+   <property name="text">
+    <string>Save diedre info</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -442,6 +448,7 @@
     <slot>setScale(double)</slot>
     <slot>computeValenceRequested()</slot>
     <slot>computeDiedreRequested()</slot>
+    <slot>saveDiedre(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -767,9 +774,43 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSave_diedre_info</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveDiedreRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>592</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>diedreFilename(QString)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>saveDiedre(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>592</x>
+     <y>272</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>modelToLoad(QString)</signal>
+  <signal>diedreFilename(QString)</signal>
   <slot>loadObjRequested()</slot>
+  <slot>saveDiedreRequested()</slot>
  </slots>
 </ui>

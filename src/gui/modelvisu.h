@@ -59,6 +59,9 @@ public slots:
     void computeValenceRequested();
     void computeDiedreRequested();
 
+    void saveDiedre( QString filename );
+
+
 private:
     // get them from shader
     int const positionLocation_{0};

@@ -5,6 +5,7 @@
 #endif
 #include <glm/gtx/euler_angles.hpp>
 
+#include <fstream>
 #include <memory>
 
 
@@ -252,6 +253,21 @@ void ModelVisu::computeDiedreRequested()
     maxDiedreChanged( maxDiedre );
     medianDiedreChanged( medianDiedre );
     averageDiedreChanged( averageDiedre );
+}
+void ModelVisu::saveDiedre( QString filename )
+{
+    if ( diedreStats_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &angle : diedreStats_.front() )
+    {
+        outFile << angle << "\n";
+    }
+
+    outFile.close();
 }
 
 void ModelVisu::updateEuler_()

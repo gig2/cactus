@@ -39,6 +39,12 @@ public:
     float average() const { return average_; }
 
 
+    auto begin() { return std::begin( anglesSorted_ ); }
+    auto end() { return std::end( anglesSorted_ ); }
+
+    auto cbegin() const { return std::cbegin( anglesSorted_ ); }
+    auto cend() const { return std::cend( anglesSorted_ ); }
+
 private:
     MeshType const& meshView_;
 
