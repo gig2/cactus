@@ -26,10 +26,10 @@ ModelVisu::ModelVisu( QWidget *parent )
     create();
 
 
-    objTransform_   = glm::rotate( objTransform_, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
+    objTransform_   = glm::rotate( glm::mat4{1.f}, glm::radians( 90.f ), glm::vec3( 1, 0, 0 ) );
     eulerTransform_ = glm::eulerAngleXYZ( yaw_, pitch_, roll_ );
 
-    scaleTransform_ = glm::scale( glm::mat4{}, glm::vec3{scale_, scale_, scale_} );
+    scaleTransform_ = glm::scale( glm::mat4{1.f}, glm::vec3{scale_, scale_, scale_} );
 }
 
 
