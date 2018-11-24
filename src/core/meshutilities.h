@@ -56,5 +56,18 @@ auto angleBetweenFaces( MeshType const& mesh, FaceHandle const& lhs, FaceHandle 
     normalLhs.normalize();
     normalRhs.normalize();
 
-    return std::acos( dot( normalLhs, normalRhs ) );
+
+    auto cosTheta = dot( normalLhs, normalRhs );
+
+    // we need to restrict the cosTheta to -1.f , 1.f
+    if ( cosTheta > 1.f )
+    {
+        cosTheta = 1.f;
+    }
+    else if ( cosTheta < -1.f )
+    {
+        cosTheta = -1.f;
+    }
+
+    return std::acos( cosTheta );
 }
