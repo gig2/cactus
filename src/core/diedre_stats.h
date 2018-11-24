@@ -15,12 +15,28 @@ public:
         computeDiedreAngles_();
     }
 
-    float min() { return min_; }
-    float max() { return max_; }
+    // Default constructor is useless since we cannot change the
+    // meshview later on (it is a reference so by definition it is const)
+    DiedreStats() = delete;
 
-    float median() { return median_; }
+    // calling the move constructor make sense here
+    // since it will not cost too much
+    // the default one should work out of the box
+    // since we want the meshview pointer to be moved
+    // (ie not the resources behind it)
+    DiedreStats( DiedreStats&& ) = default;
 
-    float average() { return average_; }
+    // but copy constructor will cost too much
+    DiedreStats( DiedreStats const& ) = delete;
+
+
+
+    float min() const { return min_; }
+    float max() const { return max_; }
+
+    float median() const { return median_; }
+
+    float average() const { return average_; }
 
 
 private:
@@ -40,6 +56,10 @@ private:
 
             anglesSorted_.push_back( angleBetweenFaces( meshView_, *faceIt, *nextFace ) );
         }
+
+        std::transform( std::begin( anglesSorted_ ), std::end( anglesSorted_ ),
+                        std::begin( anglesSorted_ ),
+                        []( auto const& angle ) { return fmod( angle, 2. * M_PI ); } );
 
         std::sort( std::begin( anglesSorted_ ), std::end( anglesSorted_ ) );
 

@@ -300,6 +300,82 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>330</y>
+      <width>341</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Diedre Stats</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>311</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="requestDiedreAngle">
+        <property name="text">
+         <string>compute Diedre angle</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>average diedre</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>max diedre</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>min diedre</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>median diedre</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLCDNumber" name="lcdMedianDiedre"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLCDNumber" name="lcdMinDiedre"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLCDNumber" name="lcdMaxDiedre"/>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLCDNumber" name="lcdAverageDiedre"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -355,12 +431,17 @@
     <signal>maxValenceChanged(int)</signal>
     <signal>medianValenceChanged(double)</signal>
     <signal>averageValenceChanged(double)</signal>
+    <signal>minDiedreChanged(double)</signal>
+    <signal>maxDiedreChanged(double)</signal>
+    <signal>medianDiedreChanged(double)</signal>
+    <signal>averageDiedreChanged(double)</signal>
     <slot>addMesh(QString)</slot>
     <slot>setYaw(int)</slot>
     <slot>setPitch(int)</slot>
     <slot>setRoll(int)</slot>
     <slot>setScale(double)</slot>
     <slot>computeValenceRequested()</slot>
+    <slot>computeDiedreRequested()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -603,6 +684,86 @@
     <hint type="destinationlabel">
      <x>414</x>
      <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>requestDiedreAngle</sender>
+   <signal>clicked()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>computeDiedreRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>995</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openGLWidget</sender>
+   <signal>minDiedreChanged(double)</signal>
+   <receiver>lcdMinDiedre</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>948</x>
+     <y>445</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openGLWidget</sender>
+   <signal>maxDiedreChanged(double)</signal>
+   <receiver>lcdMaxDiedre</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>948</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openGLWidget</sender>
+   <signal>medianDiedreChanged(double)</signal>
+   <receiver>lcdMedianDiedre</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1116</x>
+     <y>445</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openGLWidget</sender>
+   <signal>averageDiedreChanged(double)</signal>
+   <receiver>lcdAverageDiedre</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1116</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>

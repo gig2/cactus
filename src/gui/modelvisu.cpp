@@ -220,6 +220,40 @@ void ModelVisu::computeValenceRequested()
     updateValenceColor_();
 }
 
+void ModelVisu::computeDiedreRequested()
+{
+    // compute the diedreStat here
+    double minDiedre     = 0.;
+    double maxDiedre     = 0.;
+    double medianDiedre  = 0.;
+    double averageDiedre = 0.;
+
+    if ( mesh_.size() == 0 )
+        return;
+
+    diedreStats_.clear();
+    diedreStats_.reserve( mesh_.size() );
+
+    for ( auto const &mesh : mesh_ )
+    {
+        diedreStats_.emplace_back( mesh->mesh );
+    }
+
+    auto const &diedreStat = diedreStats_.front();
+
+    minDiedre = static_cast<double>( diedreStat.min() );
+    maxDiedre = static_cast<double>( diedreStat.max() );
+
+    medianDiedre  = static_cast<double>( diedreStat.median() );
+    averageDiedre = static_cast<double>( diedreStat.average() );
+
+
+    minDiedreChanged( minDiedre );
+    maxDiedreChanged( maxDiedre );
+    medianDiedreChanged( medianDiedre );
+    averageDiedreChanged( averageDiedre );
+}
+
 void ModelVisu::updateEuler_()
 {
     eulerTransform_ = glm::eulerAngleXYZ( yaw_, pitch_, roll_ );
