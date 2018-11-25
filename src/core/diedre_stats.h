@@ -1,5 +1,6 @@
 #pragma once
 #include "meshutilities.h"
+#include "stats_utils.h"
 
 #include <algorithm>
 #include <functional>
@@ -75,22 +76,9 @@ private:
         min_ = anglesSorted_.front();
         max_ = anglesSorted_.back();
 
-        if ( anglesSorted_.size() % 2 == 1 )
-        {
-            auto const index = ( anglesSorted_.size() + 1 ) / 2 - 1;
-            median_          = anglesSorted_[ index ];
-        }
-        else
-        {
-            auto const lower = anglesSorted_.size() / 2 - 1;
-            auto const upper = lower + 1;
-            median_          = ( anglesSorted_[ lower ] + anglesSorted_[ upper ] ) / 2.f;
-        }
+        median_ = mediane_sorted( std::cbegin( anglesSorted_ ), std::cend( anglesSorted_ ) );
 
-        auto const sumAngles
-            = std::accumulate( std::begin( anglesSorted_ ), std::end( anglesSorted_ ), 0.f );
-
-        average_ = sumAngles / anglesSorted_.size();
+        average_ = moyenne( std::cbegin( anglesSorted_ ), std::cend( anglesSorted_ ) );
     }
 
     float min_{0.f};
