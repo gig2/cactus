@@ -34,6 +34,11 @@ public:
     MeshT mesh;
 
 
+    /** \brief Generate or refresh buffers associated with indexes and colors
+     *
+     * It is called right after mesh loading, and usually after updating the
+     * underlying mesh.
+     */
     void refreshBuffer();
 
 

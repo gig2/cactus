@@ -76,7 +76,9 @@ private:
 
     std::vector<Valence> valences_;
 
-    std::vector<DiedreStats<decltype( std::declval<Mesh>().mesh )>> diedreStats_;
+    using MeshType = decltype( std::declval<Mesh>().mesh );
+
+    std::vector<DiedreStats<MeshType>> diedreStats_;
 
     std::vector<std::shared_ptr<Mesh>> oldMesh_;
     std::vector<std::shared_ptr<MeshNode<Mesh>>> oldMeshNode_;
