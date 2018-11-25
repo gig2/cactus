@@ -4,6 +4,7 @@ core_sources = files(['mesh.cpp',
 core_headers = files(['diedre_stats.h',
                       'mesh.h',
                       'meshutilities.h',
+                      'stats_utils.h',
                       'valence.h'])
 
 core_include = include_directories('.')
