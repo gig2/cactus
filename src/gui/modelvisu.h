@@ -64,11 +64,11 @@ private:
 
     S3DE::Shader simpleShader_;
 
-    glm::mat4 objTransform_;
+    glm::mat4 objTransform_{1.f};
 
-    glm::mat4 eulerTransform_;
+    glm::mat4 eulerTransform_{1.f};
 
-    glm::mat4 scaleTransform_;
+    glm::mat4 scaleTransform_{1.f};
 
     glm::mat4 projection_;
     glm::mat4 modelview_;
