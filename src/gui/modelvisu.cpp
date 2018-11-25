@@ -254,6 +254,8 @@ void ModelVisu::computeDiedreRequested()
     medianDiedreChanged( medianDiedre );
     averageDiedreChanged( averageDiedre );
 }
+
+
 void ModelVisu::saveDiedre( QString filename )
 {
     if ( diedreStats_.size() == 0 )
@@ -268,6 +270,33 @@ void ModelVisu::saveDiedre( QString filename )
     }
 
     outFile.close();
+}
+
+void ModelVisu::saveValence( QString filename )
+{
+    if ( valences_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &valence : valences_.front() )
+    {
+        outFile << valence << "\n";
+    }
+
+    outFile.close();
+}
+
+
+void ModelVisu::clearScene()
+{
+    makeCurrent();
+    meshNode_.clear();
+    mesh_.clear();
+    doneCurrent();
+
+    update();
 }
 
 void ModelVisu::updateEuler_()
@@ -294,7 +323,7 @@ void ModelVisu::updateValenceColor_()
             Color color2{0.0, 0., 1.};
 
 
-            int valenceValue = (int)mesh.valence(*vertIt);
+            int valenceValue = (int)mesh.valence( *vertIt );
 
             float t         = 0.f;
             int const range = maxValence - minValence;

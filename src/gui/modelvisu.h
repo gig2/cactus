@@ -60,6 +60,9 @@ public slots:
     void computeDiedreRequested();
 
     void saveDiedre( QString filename );
+    void saveValence( QString filename );
+
+    void clearScene();
 
 
 private:
@@ -75,6 +78,8 @@ private:
 
     std::vector<DiedreStats<decltype( std::declval<Mesh>().mesh )>> diedreStats_;
 
+    std::vector<std::shared_ptr<Mesh>> oldMesh_;
+    std::vector<std::shared_ptr<MeshNode<Mesh>>> oldMeshNode_;
 
     S3DE::Shader simpleShader_;
 

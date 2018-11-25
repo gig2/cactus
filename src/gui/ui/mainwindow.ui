@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1186</width>
-    <height>546</height>
+    <width>1180</width>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,50 +24,19 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>840</x>
+      <x>830</x>
       <y>10</y>
-      <width>160</width>
-      <height>111</height>
+      <width>346</width>
+      <height>331</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>roll</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSlider" name="rollSlider">
-         <property name="maximum">
-          <number>360</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLCDNumber" name="rollView"/>
-       </item>
-      </layout>
-     </item>
-     <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>pitch</string>
-         </property>
-        </widget>
-       </item>
-       <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="3" column="1">
         <widget class="QSlider" name="pitchSlider">
          <property name="maximum">
           <number>360</number>
@@ -77,21 +46,44 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLCDNumber" name="pitchView"/>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
+       <item row="2" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
           <string>yaw</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>roll</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>pitch</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLCDNumber" name="yawView"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLCDNumber" name="rollView"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSlider" name="rollSlider">
+         <property name="maximum">
+          <number>360</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QSlider" name="yawSlider">
          <property name="maximum">
           <number>360</number>
@@ -101,280 +93,145 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLCDNumber" name="yawView"/>
+       <item row="3" column="2">
+        <widget class="QLCDNumber" name="pitchView"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Euler angle</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Euler Angle</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>140</y>
-      <width>163</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Scale Factor</string>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="scaleFactorSelector">
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="singleStep">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Scale Factor</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="scaleFactorSelector">
-       <property name="decimals">
-        <number>4</number>
-       </property>
-       <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
-       <property name="value">
-        <double>1.000000000000000</double>
+      <widget class="QPushButton" name="valenceButton">
+       <property name="text">
+        <string>compute valence</string>
        </property>
       </widget>
      </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>median valence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLCDNumber" name="lcdValenceMax"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>max valence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>min valence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLCDNumber" name="lcdValenceMin"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLCDNumber" name="lcdValenceMedian"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>average valence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLCDNumber" name="lcdValenceAverage"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="requestDiedreAngle">
+       <property name="text">
+        <string>compute Diedre angle</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>average diedre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>max diedre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>min diedre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>median diedre</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLCDNumber" name="lcdMedianDiedre"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLCDNumber" name="lcdMinDiedre"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLCDNumber" name="lcdMaxDiedre"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLCDNumber" name="lcdAverageDiedre"/>
+       </item>
+      </layout>
+     </item>
     </layout>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>180</y>
-      <width>351</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Valence</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>341</width>
-       <height>62</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>min valence</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLCDNumber" name="lcdValenceMin"/>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>18</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>median valence</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLCDNumber" name="lcdValenceMedian"/>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>max valence</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLCDNumber" name="lcdValenceMax"/>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>13</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>13</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>average valence</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLCDNumber" name="lcdValenceAverage"/>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>251</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_9">
-      <item>
-       <widget class="QPushButton" name="valenceButton">
-        <property name="text">
-         <string>compute valence</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>min: red</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>max: blue</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>330</y>
-      <width>341</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Diedre Stats</string>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>311</width>
-       <height>111</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="requestDiedreAngle">
-        <property name="text">
-         <string>compute Diedre angle</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>average diedre</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>max diedre</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>min diedre</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>median diedre</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLCDNumber" name="lcdMedianDiedre"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLCDNumber" name="lcdMinDiedre"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLCDNumber" name="lcdMaxDiedre"/>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLCDNumber" name="lcdAverageDiedre"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -382,7 +239,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1186</width>
+     <width>1180</width>
      <height>20</height>
     </rect>
    </property>
@@ -391,8 +248,11 @@
      <string>Fi&amp;le</string>
     </property>
     <addaction name="openOBJ"/>
-    <addaction name="actionSave_diedre_info"/>
     <addaction name="separator"/>
+    <addaction name="actionSave_diedre_info"/>
+    <addaction name="actionSave_valence_info"/>
+    <addaction name="separator"/>
+    <addaction name="actionreset_scene"/>
     <addaction name="quit"/>
    </widget>
    <addaction name="menuObj_renderer"/>
@@ -425,6 +285,16 @@
     <string>Save diedre info</string>
    </property>
   </action>
+  <action name="actionSave_valence_info">
+   <property name="text">
+    <string>Save valence info</string>
+   </property>
+  </action>
+  <action name="actionreset_scene">
+   <property name="text">
+    <string>reset scene</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -449,6 +319,8 @@
     <slot>computeValenceRequested()</slot>
     <slot>computeDiedreRequested()</slot>
     <slot>saveDiedre(QString)</slot>
+    <slot>saveValence(QString)</slot>
+    <slot>clearScene()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -499,102 +371,6 @@
     <hint type="destinationlabel">
      <x>414</x>
      <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>yawSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>setYaw(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>919</x>
-     <y>134</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>414</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pitchSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>setPitch(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>919</x>
-     <y>174</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>414</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rollSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>openGLWidget</receiver>
-   <slot>setRoll(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>919</x>
-     <y>224</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>414</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>yawSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>yawView</receiver>
-   <slot>display(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>900</x>
-     <y>116</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>966</x>
-     <y>116</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rollSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>rollView</receiver>
-   <slot>display(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>897</x>
-     <y>246</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>966</x>
-     <y>246</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pitchSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>pitchView</receiver>
-   <slot>display(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>892</x>
-     <y>406</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>956</x>
-     <y>406</y>
     </hint>
    </hints>
   </connection>
@@ -806,11 +582,157 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>yawSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setYaw(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pitchSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setPitch(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rollSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>setRoll(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yawSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>yawView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>900</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>966</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rollSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>rollView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>966</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pitchSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>pitchView</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>892</x>
+     <y>406</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>956</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave_valence_info</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveValenceRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>589</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>valenceFilename(QString)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>saveValence(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>267</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionreset_scene</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>clearScene()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>modelToLoad(QString)</signal>
   <signal>diedreFilename(QString)</signal>
+  <signal>valenceFilename(QString)</signal>
   <slot>loadObjRequested()</slot>
   <slot>saveDiedreRequested()</slot>
+  <slot>saveValenceRequested()</slot>
  </slots>
 </ui>

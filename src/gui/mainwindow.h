@@ -24,10 +24,12 @@ public:
 private slots:
     void loadObjRequested();
     void saveDiedreRequested();
+    void saveValenceRequested();
 
 signals:
     void modelToLoad( QString model );
     void diedreFilename( QString file );
+    void valenceFilename( QString file );
 
 private:
     std::unique_ptr<Ui::MainWindow> ui;

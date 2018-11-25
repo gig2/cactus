@@ -51,3 +51,14 @@ void MainWindow::saveDiedreRequested()
         diedreFilename( filename );
     }
 }
+void MainWindow::saveValenceRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of valence" ) );
+
+    if ( !filename.isNull() )
+    {
+        valenceFilename( filename );
+    }
+}
