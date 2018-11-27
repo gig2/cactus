@@ -23,15 +23,15 @@ template <typename MeshType, typename FaceHandle>
 auto normalFromTriangle( MeshType const& mesh, FaceHandle const& faceHandle )
 {
     // Here we assume that a faces contains at least 3 vertices
-    auto originPointIt = mesh.cfv_iter( faceHandle );
-    auto secondPointIt = std::next( originPointIt );
+    auto firstPointIt  = mesh.cfv_iter( faceHandle );
+    auto secondPointIt = std::next( firstPointIt );
     auto thirdPointIt  = std::next( secondPointIt );
 
     auto vecFromPoint = [&mesh]( auto const& originIt, auto const& destinationIt ) {
         return mesh.point( *destinationIt ) - mesh.point( *originIt );
     };
 
-    auto firstBaseElem = vecFromPoint( originPointIt, secondPointIt );
+    auto firstBaseElem = vecFromPoint( firstPointIt, secondPointIt );
 
     auto secondBaseElem = vecFromPoint( secondPointIt, thirdPointIt );
 
