@@ -58,11 +58,14 @@ public slots:
     void setScale( double );
     void computeValenceRequested();
     void computeDiedreRequested();
+    void computeEquilateralMetricRequested();
 
     void saveDiedre( QString filename );
     void saveValence( QString filename );
+    void saveEquilateralMetric( QString filename );
 
     void clearScene();
+
 
 
 private:
@@ -79,6 +82,8 @@ private:
     using MeshType = decltype( std::declval<Mesh>().mesh );
 
     std::vector<DiedreStats<MeshType>> diedreStats_;
+
+    std::vector<float> equilateralMetrics_;
 
     std::vector<std::shared_ptr<Mesh>> oldMesh_;
     std::vector<std::shared_ptr<MeshNode<Mesh>>> oldMeshNode_;

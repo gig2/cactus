@@ -30,7 +30,7 @@
       <x>830</x>
       <y>10</y>
       <width>346</width>
-      <height>331</height>
+      <height>351</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -231,6 +231,13 @@
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="QPushButton" name="equilateralMetric">
+       <property name="text">
+        <string>compute equilateral metric</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -251,6 +258,7 @@
     <addaction name="separator"/>
     <addaction name="actionSave_diedre_info"/>
     <addaction name="actionSave_valence_info"/>
+    <addaction name="actionSave_equilateral_info"/>
     <addaction name="separator"/>
     <addaction name="actionreset_scene"/>
     <addaction name="quit"/>
@@ -295,6 +303,11 @@
     <string>reset scene</string>
    </property>
   </action>
+  <action name="actionSave_equilateral_info">
+   <property name="text">
+    <string>Save equilateral info</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -321,6 +334,8 @@
     <slot>saveDiedre(QString)</slot>
     <slot>saveValence(QString)</slot>
     <slot>clearScene()</slot>
+    <slot>computeEquilateralMetricRequested()</slot>
+    <slot>saveEquilateralMetric(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -726,13 +741,63 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>equilateralMetric</sender>
+   <signal>clicked()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>computeEquilateralMetricRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1002</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave_equilateral_info</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveEquilateralRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>589</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>equilateralFilename(QString)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>saveEquilateralMetric(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>267</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>414</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>modelToLoad(QString)</signal>
   <signal>diedreFilename(QString)</signal>
   <signal>valenceFilename(QString)</signal>
+  <signal>equilateralFilename(QString)</signal>
   <slot>loadObjRequested()</slot>
   <slot>saveDiedreRequested()</slot>
   <slot>saveValenceRequested()</slot>
+  <slot>saveEquilateralRequested()</slot>
  </slots>
 </ui>

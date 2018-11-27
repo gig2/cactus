@@ -14,6 +14,7 @@ template <typename MeshType, typename FaceHandle>
 float computeEquilateralMetric( MeshType const& mesh, FaceHandle const& faceHandle )
 {
     auto minmax = minmaxAngleInTriangle( mesh, faceHandle );
+    return minmax.second - minmax.first;
 }
 
 template <typename MeshType, typename FaceIt, typename OutIt>

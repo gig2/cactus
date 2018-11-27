@@ -8,6 +8,8 @@
 #include <fstream>
 #include <memory>
 
+#include "equilateral_metric.h"
+
 
 ModelVisu::ModelVisu( QWidget *parent )
     : QOpenGLWidget( parent )
@@ -255,6 +257,21 @@ void ModelVisu::computeDiedreRequested()
     averageDiedreChanged( averageDiedre );
 }
 
+void ModelVisu::computeEquilateralMetricRequested()
+{
+    if ( mesh_.size() == 0 )
+        return;
+
+    equilateralMetrics_.clear();
+
+    auto const &mesh = mesh_.front()->mesh;
+
+    computeEquilateralMetricElement( mesh, mesh.faces_begin(), mesh.faces_end(),
+                                     std::back_inserter( equilateralMetrics_ ) );
+
+    std::sort( std::begin( equilateralMetrics_ ), std::end( equilateralMetrics_ ) );
+}
+
 
 void ModelVisu::saveDiedre( QString filename )
 {
@@ -287,6 +304,23 @@ void ModelVisu::saveValence( QString filename )
 
     outFile.close();
 }
+
+void ModelVisu::saveEquilateralMetric( QString filename )
+{
+    if ( equilateralMetrics_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &metric : equilateralMetrics_ )
+    {
+        outFile << metric << "\n";
+    }
+
+    outFile.close();
+}
+
 
 
 void ModelVisu::clearScene()

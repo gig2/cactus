@@ -62,3 +62,14 @@ void MainWindow::saveValenceRequested()
         valenceFilename( filename );
     }
 }
+void MainWindow::saveEquilateralRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of equilateral" ) );
+
+    if ( !filename.isNull() )
+    {
+        equilateralFilename( filename );
+    }
+}
