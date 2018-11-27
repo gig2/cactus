@@ -1,10 +1,13 @@
 set (core_sources
      mesh.cpp
-     meshutilities.h
      valence.cpp)
 
 set (core_headers
+     diedre_stats.h
+     equilateral_metric.h
      mesh.h
+     meshutilities.h
+     stats_utils.h
      valence.h)
 
 add_library(cactus_core ${core_sources} ${core_headers})

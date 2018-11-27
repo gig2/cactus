@@ -1,7 +1,5 @@
 add_executable(test-meshutilities
   main.cpp
-  cube.h
-  cube.cpp
   test_meshutilities.cpp
   )
 
@@ -11,6 +9,7 @@ target_include_directories(test-meshutilities PRIVATE
 
 target_link_libraries(test-meshutilities PRIVATE
   cactus_core
+  cube_utils
   gtest
   gmock)
 

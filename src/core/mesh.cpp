@@ -10,6 +10,7 @@ Mesh::Mesh( std::string filename )
     {
         throw std::runtime_error( "Mesh loading error" );
     }
+    refreshBuffer();
 }
 
 

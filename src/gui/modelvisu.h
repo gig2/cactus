@@ -2,9 +2,12 @@
 
 #include <GL/glew.h>
 
+// Mesh type have to appear first
+#include "mesh.h"
+
 #include "OpenGLMeshRender/meshnode.h"
 #include "OpenGLShader/shader.h"
-#include "mesh.h"
+#include "diedre_stats.h"
 #include "valence.h"
 
 #include <QOpenGLWidget>
@@ -32,6 +35,11 @@ signals:
     void medianValenceChanged( double );
     void averageValenceChanged( double );
 
+    void minDiedreChanged( double );
+    void maxDiedreChanged( double );
+    void medianDiedreChanged( double );
+    void averageDiedreChanged( double );
+
 protected:
     void initializeGL() override;
 
@@ -49,6 +57,16 @@ public slots:
     void setRoll( int );
     void setScale( double );
     void computeValenceRequested();
+    void computeDiedreRequested();
+    void computeEquilateralMetricRequested();
+
+    void saveDiedre( QString filename );
+    void saveValence( QString filename );
+    void saveEquilateralMetric( QString filename );
+
+    void clearScene();
+
+
 
 private:
     // get them from shader
@@ -61,6 +79,11 @@ private:
 
     std::vector<Valence> valences_;
 
+    using MeshType = decltype( std::declval<Mesh>().mesh );
+
+    std::vector<DiedreStats<MeshType>> diedreStats_;
+
+    std::vector<float> equilateralMetrics_;
 
     S3DE::Shader simpleShader_;
 

@@ -23,9 +23,15 @@ public:
 
 private slots:
     void loadObjRequested();
+    void saveDiedreRequested();
+    void saveValenceRequested();
+    void saveEquilateralRequested();
 
 signals:
     void modelToLoad( QString model );
+    void diedreFilename( QString file );
+    void valenceFilename( QString file );
+    void equilateralFilename( QString file );
 
 private:
     std::unique_ptr<Ui::MainWindow> ui;

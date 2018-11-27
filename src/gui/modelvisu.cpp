@@ -5,7 +5,10 @@
 #endif
 #include <glm/gtx/euler_angles.hpp>
 
+#include <fstream>
 #include <memory>
+
+#include "equilateral_metric.h"
 
 
 ModelVisu::ModelVisu( QWidget *parent )
@@ -220,6 +223,116 @@ void ModelVisu::computeValenceRequested()
     updateValenceColor_();
 }
 
+void ModelVisu::computeDiedreRequested()
+{
+    // compute the diedreStat here
+    double minDiedre     = 0.;
+    double maxDiedre     = 0.;
+    double medianDiedre  = 0.;
+    double averageDiedre = 0.;
+
+    if ( mesh_.size() == 0 )
+        return;
+
+    diedreStats_.clear();
+    diedreStats_.reserve( mesh_.size() );
+
+    for ( auto const &mesh : mesh_ )
+    {
+        diedreStats_.emplace_back( mesh->mesh );
+    }
+
+    auto const &diedreStat = diedreStats_.front();
+
+    minDiedre = static_cast<double>( diedreStat.min() );
+    maxDiedre = static_cast<double>( diedreStat.max() );
+
+    medianDiedre  = static_cast<double>( diedreStat.median() );
+    averageDiedre = static_cast<double>( diedreStat.average() );
+
+
+    minDiedreChanged( minDiedre );
+    maxDiedreChanged( maxDiedre );
+    medianDiedreChanged( medianDiedre );
+    averageDiedreChanged( averageDiedre );
+}
+
+void ModelVisu::computeEquilateralMetricRequested()
+{
+    if ( mesh_.size() == 0 )
+        return;
+
+    equilateralMetrics_.clear();
+
+    auto const &mesh = mesh_.front()->mesh;
+
+    computeEquilateralMetricElement( mesh, mesh.faces_begin(), mesh.faces_end(),
+                                     std::back_inserter( equilateralMetrics_ ) );
+
+    std::sort( std::begin( equilateralMetrics_ ), std::end( equilateralMetrics_ ) );
+}
+
+
+void ModelVisu::saveDiedre( QString filename )
+{
+    if ( diedreStats_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &angle : diedreStats_.front() )
+    {
+        outFile << angle << "\n";
+    }
+
+    outFile.close();
+}
+
+void ModelVisu::saveValence( QString filename )
+{
+    if ( valences_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &valence : valences_.front() )
+    {
+        outFile << valence << "\n";
+    }
+
+    outFile.close();
+}
+
+void ModelVisu::saveEquilateralMetric( QString filename )
+{
+    if ( equilateralMetrics_.size() == 0 )
+        return;
+
+    // for now we save only the first
+    auto outFile = std::ofstream( filename.toStdString().c_str() );
+
+    for ( auto const &metric : equilateralMetrics_ )
+    {
+        outFile << metric << "\n";
+    }
+
+    outFile.close();
+}
+
+
+
+void ModelVisu::clearScene()
+{
+    makeCurrent();
+    meshNode_.clear();
+    mesh_.clear();
+    doneCurrent();
+
+    update();
+}
+
 void ModelVisu::updateEuler_()
 {
     eulerTransform_ = glm::eulerAngleXYZ( yaw_, pitch_, roll_ );
@@ -244,7 +357,7 @@ void ModelVisu::updateValenceColor_()
             Color color2{0.0, 0., 1.};
 
 
-            int valenceValue = (int)mesh.valence(*vertIt);
+            int valenceValue = (int)mesh.valence( *vertIt );
 
             float t         = 0.f;
             int const range = maxValence - minValence;

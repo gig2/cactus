@@ -39,3 +39,37 @@ void MainWindow::loadObjRequested()
         qDebug() << filename;
     }
 }
+
+void MainWindow::saveDiedreRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of diedre" ) );
+
+    if ( !filename.isNull() )
+    {
+        diedreFilename( filename );
+    }
+}
+void MainWindow::saveValenceRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of valence" ) );
+
+    if ( !filename.isNull() )
+    {
+        valenceFilename( filename );
+    }
+}
+void MainWindow::saveEquilateralRequested()
+{
+    QString filename;
+
+    filename = QFileDialog::getSaveFileName( this, tr( "Select the filename of equilateral" ) );
+
+    if ( !filename.isNull() )
+    {
+        equilateralFilename( filename );
+    }
+}
