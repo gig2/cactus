@@ -18,12 +18,5 @@ TEST( aCube, stats )
     auto modulusPi = []( float angle ) { return static_cast<float>( std::fmod( angle, M_PI ) ); };
 
     EXPECT_THAT( modulusPi( diedreStats.min() ), FloatEq( modulusPi( 0.f ) ) );
-    EXPECT_THAT( modulusPi( diedreStats.max() ), FloatEq( modulusPi( M_PI ) ) );
-
-    float maxModulusPiAngle = modulusPi( M_PI / 2.f );
-    float minModulusPiAngle = modulusPi( 0.f );
-
-    float middlePoint = ( maxModulusPiAngle + minModulusPiAngle ) / 2.f;
-
-    EXPECT_THAT( modulusPi( diedreStats.median() ), FloatEq( modulusPi( middlePoint ) ) );
+    EXPECT_THAT( modulusPi( diedreStats.max() ), FloatEq( modulusPi( M_PI / 2.f ) ) );
 }

@@ -50,9 +50,14 @@ auto minmaxAngleInTriangle( MeshType const& mesh, FaceHandle const& faceHandle )
     edge1.normalize();
     edge2.normalize();
 
-    auto firstCosTheta  = dot( edge0, edge1 );
-    auto secondCosTheta = dot( edge1, edge2 );
-    auto thirdCosTheta  = dot( edge2, edge0 );
+    // ok so we have edge0, edge1,edge2 circulating the triangle
+    // the first angle is between edge0 and -edge2
+    // the second angle is between -edge0 and edge1
+    // the third angle is between -edge1 and edge2
+
+    auto firstCosTheta  = dot( edge0, -edge2 );
+    auto secondCosTheta = dot( -edge0, edge1 );
+    auto thirdCosTheta  = dot( -edge1, edge2 );
 
     auto restrictAcos = []( auto const& value ) {
         if ( value > -1.f || value < 1.f )
@@ -73,9 +78,8 @@ auto minmaxAngleInTriangle( MeshType const& mesh, FaceHandle const& faceHandle )
     secondCosTheta = restrictAcos( secondCosTheta );
     thirdCosTheta  = restrictAcos( thirdCosTheta );
 
-    std::array<float, 3> angles{static_cast<float>( M_PI ) - std::acos( firstCosTheta ),
-                                static_cast<float>( M_PI ) - std::acos( secondCosTheta ),
-                                static_cast<float>( M_PI ) - std::acos( thirdCosTheta )};
+    std::array<float, 3> angles{std::acos( firstCosTheta ), std::acos( secondCosTheta ),
+                                std::acos( thirdCosTheta )};
 
     auto minmax = std::minmax_element( std::begin( angles ), std::end( angles ) );
 
@@ -88,8 +92,6 @@ TEST( anIsoceleRectangularTriangle, haveAngleOfPiOver4AndPiOver2 )
     MeshT mesh;
 
     std::array<MeshT::VertexHandle, 3> vhandle;
-
-    float sqrt2 = std::sqrt( 2.f );
 
     vhandle[ 0 ] = mesh.add_vertex( MeshT::Point{0., 0., 0.} );
     vhandle[ 1 ] = mesh.add_vertex( MeshT::Point{0., 1., 0.} );
@@ -150,7 +152,7 @@ TEST( anEquilateralTriangle, haveAngleOfPiOver3 )
 TEST( aCube, haveIsoceleTriangulation )
 {
     auto cube = constructCube();
-#if 1
+
     for ( auto faceIt = cube.faces_begin(); faceIt != cube.faces_end(); ++faceIt )
     {
         //
@@ -159,5 +161,4 @@ TEST( aCube, haveIsoceleTriangulation )
         EXPECT_THAT( minmax.first, FloatEq( M_PI / 4.f ) );
         EXPECT_THAT( minmax.second, FloatEq( M_PI / 2.f ) );
     }
-#endif
 }
