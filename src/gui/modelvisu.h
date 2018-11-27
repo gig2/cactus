@@ -85,9 +85,6 @@ private:
 
     std::vector<float> equilateralMetrics_;
 
-    std::vector<std::shared_ptr<Mesh>> oldMesh_;
-    std::vector<std::shared_ptr<MeshNode<Mesh>>> oldMeshNode_;
-
     S3DE::Shader simpleShader_;
 
     glm::mat4 objTransform_{1.f};
