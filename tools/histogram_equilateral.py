@@ -18,7 +18,7 @@ def main(filename='./default.csv'):
 
     data = pds.read_table(filename, header=None, sep=' ', names=['ecart'])
 
-    plt.hist(data['ecart'].dropna(), histtype='bar')
+    plt.hist(data['ecart'].dropna(), histtype='step',bins=180,  range=(0., 3.14))
     plt.xlabel('max angle - min angle')
     plt.ylabel('Number of occurences')
     plt.title('Histogram of deviation to be equilateral occurences of each')
