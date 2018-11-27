@@ -66,7 +66,7 @@ private:
 
         std::transform( std::begin( anglesSorted_ ), std::end( anglesSorted_ ),
                         std::begin( anglesSorted_ ),
-                        []( auto const& angle ) { return fmod( angle, 2. * M_PI ); } );
+                        []( auto const& angle ) { return fmod( angle, M_PI ); } );
 
         std::sort( std::begin( anglesSorted_ ), std::end( anglesSorted_ ) );
 
