@@ -2,6 +2,7 @@ core_sources = files(['mesh.cpp',
                       'valence.cpp'])
 
 core_headers = files(['diedre_stats.h',
+                      'equilateral_metric.h',
                       'mesh.h',
                       'meshutilities.h',
                       'stats_utils.h',

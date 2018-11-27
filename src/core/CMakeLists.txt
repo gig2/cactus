@@ -4,6 +4,7 @@ set (core_sources
 
 set (core_headers
      diedre_stats.h
+     equilateral_metric.h
      mesh.h
      meshutilities.h
      stats_utils.h
