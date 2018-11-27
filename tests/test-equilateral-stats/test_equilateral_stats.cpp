@@ -149,13 +149,12 @@ TEST( anEquilateralTriangle, haveAngleOfPiOver3 )
 }
 
 //
-TEST( aCube, haveIsoceleTriangulation )
+TEST( aCube, haveRectangularIsoceleTriangulation )
 {
     auto cube = constructCube();
 
     for ( auto faceIt = cube.faces_begin(); faceIt != cube.faces_end(); ++faceIt )
     {
-        //
         auto minmax = minmaxAngleInTriangle( cube, *faceIt );
 
         EXPECT_THAT( minmax.first, FloatEq( M_PI / 4.f ) );
