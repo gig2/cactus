@@ -53,15 +53,22 @@ private:
     {
         //
         anglesSorted_.reserve( meshView_.n_faces() );
-        for ( auto faceIt = meshView_.faces_begin(); faceIt != meshView_.faces_end(); ++faceIt )
+
+
+        for ( auto edgeIt = meshView_.edges_begin(); edgeIt != meshView_.edges_end(); ++edgeIt )
         {
-            auto nextFace = std::next( faceIt );
-            if ( nextFace == meshView_.faces_end() )
+            if ( meshView_.is_boundary( *edgeIt ) )
             {
-                nextFace = meshView_.faces_begin();
+                continue;
             }
 
-            anglesSorted_.push_back( angleBetweenFaces( meshView_, *faceIt, *nextFace ) );
+            auto nextFace = meshView_.face_handle( meshView_.halfedge_handle( *edgeIt, 0 ) );
+
+            auto previousFace
+                = meshView_.opposite_face_handle( meshView_.halfedge_handle( *edgeIt, 0 ) );
+
+
+            anglesSorted_.push_back( angleBetweenFaces( meshView_, previousFace, nextFace ) );
         }
 
         std::transform( std::begin( anglesSorted_ ), std::end( anglesSorted_ ),
