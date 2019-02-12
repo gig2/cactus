@@ -1,4 +1,6 @@
 # cactus
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgig2%2Fcactus.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgig2%2Fcactus?ref=badge_shield)
+
 project for GIG 
 
 For OpenMesh dependency we will use
@@ -11,3 +13,7 @@ In case of building openmesh during this project, disabling BUILD APP is recomme
 
 If glm cannot be found, it will be get with git, in this case it is advised to disabling
 GLM TEST ENABLE (replace space with underscore)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgig2%2Fcactus.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgig2%2Fcactus?ref=badge_large)
